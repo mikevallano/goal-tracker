@@ -1,0 +1,21 @@
+require: rubocop-rspec
+
+Style/Documentation:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+#### RSpec rules to turn off
+
+RSpec/ExpectChange:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
