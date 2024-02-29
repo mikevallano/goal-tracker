@@ -12,6 +12,9 @@ Style/FrozenStringLiteralComment:
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 #### RSpec rules to turn off
 
 RSpec/ExpectChange:

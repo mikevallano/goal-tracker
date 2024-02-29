@@ -1,30 +1,36 @@
 module Api
   class BaseController < ActionController::API
-    # include ActionController::MimeResponds
-    # respond_to :json
     attr_reader :current_user
 
     before_action :authenticate_token!
 
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from JWT::ExpiredSignature, with: :expired_token
+    rescue_from JWT::DecodeError, with: :invalid_auth_token
 
     private
+
+    def authenticate_token!
+      payload = JsonWebToken.decode(auth_token)
+      @current_user = User.find(payload['subject'])
+    end
+
+    def auth_token
+      request.headers.fetch('Authorization', '').split('Bearer ').last
+    end
+
+    # Error handling
 
     def not_found
       render json: { error: 'Record not found' }, status: :not_found
     end
 
-    def authenticate_token!
-      payload = JsonWebToken.decode(auth_token)
-      @current_user = User.find(payload['sub'])
-    rescue JWT::ExpiredSignature
+    def expired_token
       render json: { errors: ['Auth token expired'] }, status: :unauthorized
-    rescue JWT::DecodeError
-      render json: { errors: ['Invalid auth token'] }, status: :unauthorized
     end
 
-    def auth_token
-      @auth_token ||= request.headers.fetch('Authorization', '').split(' ').last
+    def invalid_auth_token
+      render json: { errors: ['Invalid auth token'] }, status: :unauthorized
     end
   end
 end
