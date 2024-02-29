@@ -1,11 +1,11 @@
 import './App.css'
-import Test from './components/Test'
+import LoginForm from './components/LoginForm'
 
 function App() {
   return (
     <>
       <h2>Goal Tracker</h2>
-      <Test />
+      <LoginForm />
     </>
   )
 }
