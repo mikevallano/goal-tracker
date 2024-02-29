@@ -22,3 +22,6 @@ RSpec/ExpectChange:
 
 RSpec/MultipleExpectations:
   Enabled: false
+
+RSpec/ExampleLength:
+  Max: 15

@@ -1,6 +1,6 @@
 module JsonWebToken
-  def self.encode(payload)
-    expiration = 60.minutes.from_now.to_i
+  def self.encode(payload, expiration_mins: 60)
+    expiration = expiration_mins.minutes.from_now.to_i
     JWT.encode(payload.merge(exp: expiration), Rails.application.credentials.jwt[:secret_key], 'HS256')
   end
 
