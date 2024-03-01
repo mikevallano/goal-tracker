@@ -1,5 +1,6 @@
 import './App.css'
 import LoginForm from './components/LoginForm'
+import Test from './components/Test'
 import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
@@ -8,8 +9,8 @@ function App() {
   return (
     <>
       <h2>Goal Tracker</h2>
-      <p>isLoggedIn: {isLoggedIn}</p>
-      {/* <LoginForm /> */}
+      <LoginForm />
+      <Test />
     </>
   )
 }

@@ -1,54 +1,41 @@
-import { useState } from 'react'
 import axios from 'axios'
-import Test from './Test'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [authHeader, setAuthHeader] = useState('')
-
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value)
-  }
+  const { handleLogIn } = useAuthContext()
 
   const sendLoginRequest = async (email: string, password: string) => {
     const response = await axios.post('http://localhost:3000/api/v1/login', {
       email,
       password,
     })
-    console.log('response: ', response)
-    setAuthHeader(response.data['auth_token'])
+    handleLogIn(response.data['auth_token'])
   }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    const form = event.target as HTMLFormElement
+    const formData = new FormData(form)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
     sendLoginRequest(email, password)
+    form.reset()
   }
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <label>
-          Email:
-          <input type='email' value={email} onChange={handleEmailChange} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input
-            type='password'
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </label>
-        <br />
+        <section>
+          <label>Email:</label>
+          <input type='text' name='email' />
+        </section>
+        <section>
+          <label>Password:</label>
+          <input type='password' name='password' />
+        </section>
         <button type='submit'>Submit</button>
       </form>
-      <Test authHeader={authHeader} />
     </>
   )
 }

@@ -4,12 +4,14 @@ type AuthContextType = {
   isLoggedIn: boolean
   handleLogIn: (token: string) => void
   handleLogOut: () => void
+  authToken: string | null
 }
 
 const initialAuthContext: AuthContextType = {
   isLoggedIn: false,
   handleLogIn: () => {},
   handleLogOut: () => {},
+  authToken: null,
 }
 
 export const AuthContext = createContext<AuthContextType>(initialAuthContext)
@@ -18,28 +20,34 @@ type AuthProviderProps = {
   children: ReactNode
 }
 
+const TOKEN_KEY = 'authToken'
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [authToken, setAuthToken] = useState(localStorage.getItem(TOKEN_KEY))
+  const [isLoggedIn, setIsLoggedIn] = useState(!!authToken)
 
   const handleLogIn = (token: string) => {
-    // You might want to store the token in a secure way (e.g., localStorage)
-    // For simplicity, we're storing it in state here
-    console.log(token)
+    localStorage.setItem(TOKEN_KEY, token)
+    setAuthToken(token)
     setIsLoggedIn(true)
   }
 
   const handleLogOut = () => {
-    // Clear any authentication-related state (e.g., remove token from storage)
+    localStorage.removeItem(TOKEN_KEY)
+    setAuthToken('')
     setIsLoggedIn(false)
   }
 
-  const returnValue = {
-    isLoggedIn: isLoggedIn,
-    handleLogIn: handleLogIn,
-    handleLogOut: handleLogOut,
-  }
-
   return (
-    <AuthContext.Provider value={returnValue}>{children}</AuthContext.Provider>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        handleLogIn,
+        handleLogOut,
+        authToken,
+      }}
+    >
+      {children}
+    </AuthContext.Provider>
   )
 }
