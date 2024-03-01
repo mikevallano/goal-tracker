@@ -1,15 +1,13 @@
 import axios from 'axios'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const BASE_URL = 'http://localhost:3000/api/v1'
 
-type TestProps = {
-  authHeader: string
-}
-
-const Test = ({ authHeader }: TestProps) => {
+const Test = () => {
+  const { authToken } = useAuthContext()
   const fetchKits = () => {
     axios(`${BASE_URL}/ping`, {
-      headers: { Authorization: `Bearer ${authHeader}` },
+      headers: { Authorization: `Bearer ${authToken}` },
     }).then((json) => console.log(json))
   }
 
