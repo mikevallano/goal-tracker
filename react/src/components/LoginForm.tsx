@@ -2,8 +2,15 @@ import axios, { AxiosError } from 'axios'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useState } from 'react'
 
+const LOGIN_URL = 'http://localhost:3000/api/v1/login'
+
 type ErrorResponseType = {
   error: string
+}
+
+type loginParams = {
+  email: string
+  password: string
 }
 
 const LoginForm: React.FC = () => {
@@ -11,11 +18,12 @@ const LoginForm: React.FC = () => {
   const [error, setError] = useState<null | string>(null)
   const [loading, setLoading] = useState(false)
 
-  const sendLoginRequest = async (email: string, password: string) => {
+  const sendLoginRequest = async (params: loginParams) => {
     try {
       setLoading(true)
       setError(null)
-      const response = await axios.post('http://localhost:3000/api/v1/login', {
+      const { email, password } = params
+      const response = await axios.post(LOGIN_URL, {
         email,
         password,
       })
@@ -44,8 +52,12 @@ const LoginForm: React.FC = () => {
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
-    sendLoginRequest(email, password)
-    form.reset()
+    if (email === '' || password === '') {
+      setError('Must enter email and password')
+    } else {
+      sendLoginRequest({ email, password })
+      form.reset()
+    }
   }
 
   return (
@@ -55,7 +67,7 @@ const LoginForm: React.FC = () => {
       <form onSubmit={handleSubmit}>
         <section>
           <label>Email:</label>
-          <input type='text' name='email' />
+          <input type='email' name='email' />
         </section>
         <section>
           <label>Password:</label>
