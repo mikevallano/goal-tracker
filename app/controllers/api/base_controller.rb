@@ -25,10 +25,10 @@ class Api::BaseController < ActionController::API
   end
 
   def expired_token
-    render json: { errors: ['Auth token expired'] }, status: :unauthorized
+    render json: { error: 'Auth token expired' }, status: :unauthorized
   end
 
   def invalid_auth_token
-    render json: { errors: ['Invalid auth token'] }, status: :unauthorized
+    render json: { error: 'Invalid auth token' }, status: :unauthorized
   end
 end

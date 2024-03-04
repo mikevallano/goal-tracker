@@ -16,13 +16,15 @@ RSpec.describe '/api/v1/authentication', type: :request do
       it 'returns 404 if user is not found' do
         user = create(:user)
         post api_v1_login_path, params: { email: 'wrong', password: user.password }
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)['error']).to include('Invalid')
       end
 
       it 'returns 401 with wrong password' do
         user = create(:user)
         post api_v1_login_path, params: { email: user.email, password: 'wrong' }
         expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)['error']).to include('Invalid')
       end
     end
   end
