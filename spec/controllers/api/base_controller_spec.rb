@@ -25,6 +25,7 @@ RSpec.describe Api::BaseController, type: :controller do
         request.headers['Authorization'] = 'Bearer invalid_token'
         get :index
         expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)['error']).to include('Invalid')
       end
 
       it 'returns a 401 when token is expired' do
@@ -33,6 +34,7 @@ RSpec.describe Api::BaseController, type: :controller do
         request.headers['Authorization'] = "Bearer #{token}"
         get :index
         expect(response).to have_http_status(:unauthorized)
+        expect(JSON.parse(response.body)['error']).to include('Invalid')
       end
     end
 
