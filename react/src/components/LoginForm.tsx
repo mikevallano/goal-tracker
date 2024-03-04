@@ -1,49 +1,38 @@
-import axios, { AxiosError } from 'axios'
 import { useAuthContext } from '../hooks/useAuthContext'
-import { useState } from 'react'
+import { useEffect } from 'react'
+import { MakeRequestParams, useAxios } from '../hooks/useAxios'
 
 const LOGIN_URL = 'http://localhost:3000/api/v1/login'
-
-type ErrorResponseType = {
-  error: string
-}
 
 type loginParams = {
   email: string
   password: string
 }
 
-const LoginForm: React.FC = () => {
-  const { handleLogIn } = useAuthContext()
-  const [error, setError] = useState<null | string>(null)
-  const [loading, setLoading] = useState(false)
+type LoginResponse = {
+  auth_token: string
+}
 
-  const sendLoginRequest = async (params: loginParams) => {
-    try {
-      setLoading(true)
-      setError(null)
-      const { email, password } = params
-      const response = await axios.post(LOGIN_URL, {
-        email,
-        password,
-      })
-      setLoading(false)
-      setError(null)
-      handleLogIn(response.data['auth_token'])
-    } catch (error) {
-      setLoading(false)
-      if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError<ErrorResponseType>
-        if (axiosError.response && axiosError.response.data.error) {
-          setError(axiosError.response.data.error)
-        } else {
-          setError('Something went wrong...')
-        }
-      } else {
-        setError('Something went wrong...')
-      }
+const LoginForm: React.FC = () => {
+  const { handleLogIn, authToken } = useAuthContext()
+  const { makeRequest, loading, error, setError, data } =
+    useAxios<LoginResponse>()
+
+  const sendRequest = (params: loginParams) => {
+    const requestParams: MakeRequestParams = {
+      method: 'post',
+      url: LOGIN_URL,
+      params: params,
     }
+    makeRequest(requestParams)
   }
+
+  useEffect(() => {
+    if (!authToken && data) {
+      const { auth_token: newToken } = data
+      handleLogIn(newToken)
+    }
+  }, [data, error])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -55,7 +44,7 @@ const LoginForm: React.FC = () => {
     if (email === '' || password === '') {
       setError('Must enter email and password')
     } else {
-      sendLoginRequest({ email, password })
+      sendRequest({ email, password })
       form.reset()
     }
   }
