@@ -3,10 +3,9 @@ if User.count > 3
 else
   5.times do
     user = User.create!(
-      username: FFaker::Internet.user_name,
       email: FFaker::Internet.safe_email,
       password: FFaker::Internet.password
     )
-    puts "user created : #{user.username} *****"
+    puts "user created : #{user.email} *****"
   end
 end
