@@ -15,6 +15,9 @@ Layout/EmptyLineAfterGuardClause:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Lint/MissingSuper:
+  Enabled: false
+
 #### RSpec rules to turn off
 
 RSpec/ExpectChange:
