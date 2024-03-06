@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_06_190222) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_06_222351) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_190222) do
     t.datetime "end_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["goal_id"], name: "index_tracked_goals_on_goal_id"
+    t.index ["goal_id", "start_date"], name: "index_tracked_goals_on_goal_id_and_start_date"
   end
 
   create_table "users", force: :cascade do |t|
@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_06_190222) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "week_starts_on_day", default: "monday", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

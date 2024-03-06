@@ -6,18 +6,42 @@ RSpec.describe TrackedGoal, type: :model do
     expect(tracked_goal.valid?).to be true
   end
 
-  it 'can set start and end date' do
-    tracked_goal = build(:tracked_goal)
-    tracked_goal.start_date =
-      Date.current.send(
-        "beginning_of_#{tracked_goal.timeframe_type}", :saturday
-      ).beginning_of_day
-    tracked_goal.end_date = Date.current.end_of_week.end_of_day
-    tracked_goal.save!
+  describe 'enum' do
+    it 'validates enum' do
+      expect { build(:tracked_goal, timeframe_type: 'wrong') }.to raise_error(ArgumentError)
+    end
+  end
 
-    res = described_class
-          .where(start_date: Date.current.beginning_of_week(:saturday)
-          .beginning_of_day)
-    expect(res).to include(tracked_goal)
+  describe 'scopes' do
+    describe '.by_user' do
+      it 'returns the correct records' do
+        user1 = create(:user)
+        user2 = create(:user)
+        tracked_goal1 = create(:tracked_goal, goal: create(:goal, user: user1))
+        create(:tracked_goal, goal: create(:goal, user: user2))
+        res = described_class.by_user(user1)
+        expect(res).to eq([tracked_goal1])
+      end
+    end
+
+    describe '.by_week' do
+      it 'returns matching records' do
+        goal = create(:goal)
+        tracked_goal1 = create(:tracked_goal, :week, goal:)
+        create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
+        res = described_class.by_user(goal.user).by_week(Date.current)
+        expect(res).to eq([tracked_goal1])
+      end
+    end
+
+    describe '.by_week_by_user' do
+      it 'returns matching records' do
+        goal = create(:goal)
+        tracked_goal1 = create(:tracked_goal, :week, goal:)
+        create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
+        res = described_class.by_week_by_user(Date.current, goal.user)
+        expect(res).to eq([tracked_goal1])
+      end
+    end
   end
 end
