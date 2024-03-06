@@ -26,9 +26,5 @@ module Seeds
         puts "goal created: #{goal.name} *****"
       end
     end
-
-    def self.generate_name_or_description
-      FFaker::Lorem.words(rand(3..10)).join(' ')
-    end
   end
 end

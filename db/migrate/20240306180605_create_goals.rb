@@ -2,7 +2,7 @@ class CreateGoals < ActiveRecord::Migration[7.1]
   def up
     return if table_exists?(:goals)
     create_table :goals do |t|
-      t.string :name
+      t.string :name, null: false
       t.string :description
       t.datetime :archived_at
       t.references :user, null: false, foreign_key: true
