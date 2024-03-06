@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, SetStateAction } from 'react'
 import { MakeRequestParams, useAxios } from '../hooks/useAxios'
 
 const SIGNUP_URL = 'http://localhost:3000/api/v1/signup'
@@ -12,7 +12,11 @@ type SignInResponse = {
   auth_token: string
 }
 
-const SignUpForm = () => {
+type SignUpFormParams = {
+  setIsSignedUp: React.Dispatch<SetStateAction<boolean>>
+}
+
+const SignUpForm = ({ setIsSignedUp }: SignUpFormParams) => {
   const [userCreated, setUserCreated] = useState(false)
   const { makeRequest, loading, error, setError, data } =
     useAxios<SignInResponse>()
@@ -29,6 +33,7 @@ const SignUpForm = () => {
   useEffect(() => {
     if (data) {
       setUserCreated(true)
+      setIsSignedUp(true)
     } else if (error) {
       setUserCreated(false)
     }

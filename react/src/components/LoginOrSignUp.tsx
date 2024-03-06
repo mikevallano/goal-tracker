@@ -9,7 +9,7 @@ const LoginOrSignUp = () => {
     <>
       <h2>Must be logged in to continue</h2>
       {isSignedUp && <LoginForm />}
-      {!isSignedUp && <SignUpForm />}
+      {!isSignedUp && <SignUpForm setIsSignedUp={setIsSignedUp} />}
       <p
         className='login-signup-link'
         onClick={() => setIsSignedUp((prev) => !prev)}
