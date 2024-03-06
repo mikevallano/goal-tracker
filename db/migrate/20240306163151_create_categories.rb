@@ -10,6 +10,7 @@ class CreateCategories < ActiveRecord::Migration[7.1]
   end
 
   def down
-    nil unless table_exists?(:categories)
+    return unless table_exists?(:categories)
+    drop_table(:categories)
   end
 end
