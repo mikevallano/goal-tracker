@@ -53,6 +53,7 @@ const LoginForm: React.FC = () => {
     <>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+      <h3>Log In to Goal Tracker</h3>
       <form onSubmit={handleSubmit}>
         <section>
           <label>Email:</label>
@@ -62,7 +63,7 @@ const LoginForm: React.FC = () => {
           <label>Password:</label>
           <input type='password' name='password' />
         </section>
-        <button type='submit'>Submit</button>
+        <button type='submit'>Log In</button>
       </form>
     </>
   )

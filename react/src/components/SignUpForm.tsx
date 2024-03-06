@@ -64,6 +64,7 @@ const SignUpForm = () => {
   )
   return (
     <>
+      <h3>Sign Up for a new account</h3>
       {loading && <p>Loading</p>}
       {error && <p>{error}</p>}
       {!userCreated && formElement}
