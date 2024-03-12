@@ -4,7 +4,8 @@ class TrackedGoal < ApplicationRecord
   validates :progress_rating,
             inclusion: {
               in: [1, 2, 3, 4, 5],
-              message: '%<value>s is not a valid rating'
+              message: '%<value>s is not a valid rating',
+              allow_blank: true
             }
   enum timeframe_type: %w[day week quarter year].index_with(&:to_s)
 
