@@ -1,5 +1,10 @@
 require: rubocop-rspec
 
+AllCops:
+  Excludes:
+    - db/schema.rb
+    - misc.rb
+
 Style/Documentation:
   Enabled: false
 

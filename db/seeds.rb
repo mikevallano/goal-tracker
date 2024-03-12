@@ -1,11 +1,11 @@
-if User.count > 3
-  puts 'Users already exist'
-else
-  5.times do
-    user = User.create!(
-      email: FFaker::Internet.safe_email,
-      password: FFaker::Internet.password
-    )
-    puts "user created : #{user.email} *****"
-  end
+require_relative './seeds/users'
+require_relative './seeds/categories'
+require_relative './seeds/goals'
+require_relative './seeds/tracked_goals'
+
+ActiveRecord::Base.transaction do
+  Seeds::Users.create!
+  Seeds::Categories.create!
+  Seeds::Goals.create!
+  Seeds::TrackedGoals.create!
 end
