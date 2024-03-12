@@ -9,12 +9,16 @@ const Categories = () => {
   const [categories, setCategories] = useState([])
 
   const fetchCategories = () => {
-    makeRequest({ method: 'get', url: CATEGORIES_URL })
+    makeRequest({
+      method: 'get',
+      url: CATEGORIES_URL,
+      handleData: setCategories,
+    })
   }
 
-  useEffect(() => {
-    setCategories(data)
-  }, [data])
+  // useEffect(() => {
+  //   setCategories(data)
+  // }, [data])
 
   return (
     <div>

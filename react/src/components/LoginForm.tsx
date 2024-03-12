@@ -1,6 +1,5 @@
 import { useAuthContext } from '../hooks/useAuthContext'
-import { useEffect } from 'react'
-import { MakeRequestParams, useAxios } from '../hooks/useAxios'
+import { requestConfigParams, useAxios } from '../hooks/useAxios'
 
 const LOGIN_URL = 'http://localhost:3000/api/v1/login'
 
@@ -14,25 +13,21 @@ type LoginResponse = {
 }
 
 const LoginForm: React.FC = () => {
-  const { handleLogIn, authToken } = useAuthContext()
-  const { makeRequest, loading, error, setError, data } =
-    useAxios<LoginResponse>()
+  const { handleLogIn } = useAuthContext()
+  const { makeRequest, loading, error } = useAxios<LoginResponse>()
+
+  const setTokenResponse = (data) => {
+    handleLogIn(data['auth_token'])
+  }
 
   const sendRequest = (params: loginParams) => {
-    const requestParams: MakeRequestParams = {
+    const requestConfig: requestConfigParams = {
       method: 'post',
       url: LOGIN_URL,
       params: params,
     }
-    makeRequest(requestParams)
+    makeRequest(requestConfig, setTokenResponse)
   }
-
-  useEffect(() => {
-    if (!authToken && data) {
-      const { auth_token: newToken } = data
-      handleLogIn(newToken)
-    }
-  }, [data, error])
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()

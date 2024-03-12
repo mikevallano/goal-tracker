@@ -2,14 +2,18 @@ import axios from 'axios'
 import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 
-export type MakeRequestParams = {
+export type requestConfigParams = {
   method: 'get' | 'post' | 'put' | 'delete'
   url: string
   params?: Record<string, any>
 }
 
+export type handleDataParams = {
+  handleData: () => void
+}
+
 type UseAxiosResult<T> = {
-  makeRequest: (params: MakeRequestParams) => Promise<void>
+  makeRequest: (params: requestConfigParams) => Promise<void>
   data: T | null
   loading: boolean
   error: string | null
@@ -18,24 +22,28 @@ type UseAxiosResult<T> = {
 
 export const useAxios = <T,>(): UseAxiosResult<T> => {
   const { authToken } = useAuthContext()
-  const [data, setData] = useState<T | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const makeRequest = async (params: MakeRequestParams): Promise<void> => {
+  const makeRequest = async (
+    requestConfig: requestConfigParams,
+    handleData: (data: {}) => void
+  ): Promise<void> => {
     try {
       setLoading(true)
       setError(null)
 
       const response = await axios({
-        method: params.method,
-        url: params.url,
-        data: params.method === 'post' ? params.params : undefined,
-        params: params.method === 'get' ? params.params : undefined,
+        method: requestConfig.method,
+        url: requestConfig.url,
+        data:
+          requestConfig.method === 'post' ? requestConfig.params : undefined,
+        params:
+          requestConfig.method === 'get' ? requestConfig.params : undefined,
         headers: { Authorization: `Bearer ${authToken}` },
       })
 
-      setData(response.data)
+      handleData(response.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error
@@ -48,5 +56,5 @@ export const useAxios = <T,>(): UseAxiosResult<T> => {
     }
   }
 
-  return { makeRequest, data, loading, error, setError }
+  return { makeRequest, loading, error }
 }
