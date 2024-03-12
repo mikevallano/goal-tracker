@@ -5,20 +5,18 @@ import Category from './Category'
 const CATEGORIES_URL = 'http://localhost:3000/api/v1/categories'
 
 const Categories = () => {
-  const { makeRequest, data, loading, error } = useAxios()
+  const { makeRequest, loading, error } = useAxios()
   const [categories, setCategories] = useState([])
 
   const fetchCategories = () => {
-    makeRequest({
-      method: 'get',
-      url: CATEGORIES_URL,
-      handleData: setCategories,
-    })
+    makeRequest(
+      {
+        method: 'get',
+        url: CATEGORIES_URL,
+      },
+      setCategories
+    )
   }
-
-  // useEffect(() => {
-  //   setCategories(data)
-  // }, [data])
 
   return (
     <div>
