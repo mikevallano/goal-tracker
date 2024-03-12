@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, SetStateAction } from 'react'
 import { useAuthContext } from './useAuthContext'
 
 export type requestConfigParams = {
@@ -8,10 +8,12 @@ export type requestConfigParams = {
   params?: Record<string, any>
 }
 
+type handleDataType = (data: {}) => void | React.Dispatch<SetStateAction<[]>>
+
 type UseAxiosResult = {
   makeRequest: (
     requestConfig: requestConfigParams,
-    handleData: (data: {}) => void
+    handleData: handleDataType
   ) => Promise<void>
   loading: boolean
   error: string | null
@@ -24,7 +26,7 @@ export const useAxios = (): UseAxiosResult => {
 
   const makeRequest = async (
     requestConfig: requestConfigParams,
-    handleData: (data: {}) => void
+    handleData: handleDataType
   ): Promise<void> => {
     try {
       setLoading(true)

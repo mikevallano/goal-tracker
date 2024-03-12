@@ -1,5 +1,6 @@
 import { useEffect, useState, SetStateAction } from 'react'
 import { MakeRequestParams, useAxios } from '../hooks/useAxios'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 const SIGNUP_URL = 'http://localhost:3000/api/v1/signup'
 
@@ -8,18 +9,15 @@ type SignInParams = {
   password: string
 }
 
-type SignInResponse = {
-  auth_token: string
-}
-
-type SignUpFormParams = {
-  setIsSignedUp: React.Dispatch<SetStateAction<boolean>>
-}
-
-const SignUpForm = ({ setIsSignedUp }: SignUpFormParams) => {
+const SignUpForm = () => {
   const [userCreated, setUserCreated] = useState(false)
-  const { makeRequest, loading, error, setError, data } =
-    useAxios<SignInResponse>()
+  const { handleLogIn } = useAuthContext()
+  const [_error, setError] = useState<string | null>(null)
+  const { makeRequest, loading, error } = useAxios()
+
+  const setTokenResponse = (data) => {
+    handleLogIn(data['auth_token'])
+  }
 
   const sendRequest = (params: SignInParams) => {
     const requestParams: MakeRequestParams = {
@@ -27,17 +25,9 @@ const SignUpForm = ({ setIsSignedUp }: SignUpFormParams) => {
       url: SIGNUP_URL,
       params: params,
     }
-    makeRequest(requestParams)
+    makeRequest(requestParams, setTokenResponse)
   }
 
-  useEffect(() => {
-    if (data) {
-      setUserCreated(true)
-      setIsSignedUp(true)
-    } else if (error) {
-      setUserCreated(false)
-    }
-  }, [data, error])
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const form = event.target as HTMLFormElement
