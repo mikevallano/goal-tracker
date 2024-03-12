@@ -13,6 +13,7 @@ Rails.application.routes.draw do
       post 'signup', to: 'users#create'
       resources :categories
       resources :goals
+      resources :tracked_goals
     end
   end
 end
