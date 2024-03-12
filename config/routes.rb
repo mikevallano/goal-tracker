@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       post 'login', to: 'authentication#create'
       get 'ping' => 'test#ping'
       post 'signup', to: 'users#create'
+      resources :categories
     end
   end
 end
