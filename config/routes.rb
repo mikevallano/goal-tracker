@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get 'ping' => 'test#ping'
       post 'signup', to: 'users#create'
       resources :categories
+      resources :goals
     end
   end
 end

@@ -5,7 +5,7 @@ RSpec.describe 'Api::V1::Categories', type: :request do
 
   before { authenticate_user(current_user) }
 
-  describe 'GET /index' do
+  describe 'GET #index' do
     it 'is successful' do
       get api_v1_categories_path
       expect(response).to have_http_status(:success)
@@ -20,7 +20,7 @@ RSpec.describe 'Api::V1::Categories', type: :request do
     end
   end
 
-  describe 'POST /categories' do
+  describe 'POST #create' do
     context 'when success' do
       it 'creates a category' do
         expect { post api_v1_categories_path, params: { name: 'tester' } }.to change { Category.count }.by(1)

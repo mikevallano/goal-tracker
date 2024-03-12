@@ -1,5 +1,5 @@
 class CreateGoal < BaseService
-  def initialize(name:, user_id:, category_id:, description:)
+  def initialize(name:, user_id:, category_id:, description: nil)
     @name = name
     @user_id = user_id
     @category_id = category_id
