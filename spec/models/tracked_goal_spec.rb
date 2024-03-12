@@ -28,8 +28,9 @@ RSpec.describe TrackedGoal, type: :model do
       it 'returns matching records' do
         goal = create(:goal)
         tracked_goal1 = create(:tracked_goal, :week, goal:)
-        create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
+        tracked_goal2 = create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
         res = described_class.by_user(goal.user).by_week(Date.current)
+        expect(res).not_to include([tracked_goal2])
         expect(res).to eq([tracked_goal1])
       end
     end
@@ -38,8 +39,9 @@ RSpec.describe TrackedGoal, type: :model do
       it 'returns matching records' do
         goal = create(:goal)
         tracked_goal1 = create(:tracked_goal, :week, goal:)
-        create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
+        tracked_goal2 = create(:tracked_goal, :week, goal:, start_date: 2.weeks.ago)
         res = described_class.by_week_by_user(Date.current, goal.user)
+        expect(res).not_to include([tracked_goal2])
         expect(res).to eq([tracked_goal1])
       end
     end
