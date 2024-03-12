@@ -1,6 +1,6 @@
 import './App.css'
 import LoggedInCheck from './components/LoggedInCheck'
-import Test from './components/Test'
+import Categories from './components/Categories'
 import { useAuthContext } from './hooks/useAuthContext'
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       {isLoggedIn && <button onClick={handleLogOut}>Log out</button>}
       <h1>Goal Tracker</h1>
       <LoggedInCheck>
-        <Test />
+        <Categories />
       </LoggedInCheck>
     </>
   )
