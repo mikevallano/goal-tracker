@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { useAuthContext } from './useAuthContext'
 
 export type MakeRequestParams = {
   method: 'get' | 'post' | 'put' | 'delete'
@@ -16,6 +17,7 @@ type UseAxiosResult<T> = {
 }
 
 export const useAxios = <T,>(): UseAxiosResult<T> => {
+  const { authToken } = useAuthContext()
   const [data, setData] = useState<T | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -30,6 +32,7 @@ export const useAxios = <T,>(): UseAxiosResult<T> => {
         url: params.url,
         data: params.method === 'post' ? params.params : undefined,
         params: params.method === 'get' ? params.params : undefined,
+        headers: { Authorization: `Bearer ${authToken}` },
       })
 
       setData(response.data)
