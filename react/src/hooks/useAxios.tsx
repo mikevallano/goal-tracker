@@ -8,19 +8,16 @@ export type requestConfigParams = {
   params?: Record<string, any>
 }
 
-export type handleDataParams = {
-  handleData: () => void
-}
-
-type UseAxiosResult<T> = {
-  makeRequest: (params: requestConfigParams) => Promise<void>
-  data: T | null
+type UseAxiosResult = {
+  makeRequest: (
+    requestConfig: requestConfigParams,
+    handleData: (data: {}) => void
+  ) => Promise<void>
   loading: boolean
   error: string | null
-  setError: (error: string | null) => void
 }
 
-export const useAxios = <T,>(): UseAxiosResult<T> => {
+export const useAxios = (): UseAxiosResult => {
   const { authToken } = useAuthContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
