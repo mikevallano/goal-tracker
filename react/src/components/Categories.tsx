@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAxios } from '../hooks/useAxios'
 import Category from './Category'
 

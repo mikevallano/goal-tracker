@@ -8,7 +8,7 @@ export type requestConfigParams = {
   params?: Record<string, any>
 }
 
-type handleDataType = (data: {}) => void | React.Dispatch<SetStateAction<[]>>
+type handleDataType = (data: {}) => void | []
 
 type UseAxiosResult = {
   makeRequest: (
