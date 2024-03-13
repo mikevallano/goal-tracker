@@ -1,6 +1,9 @@
 class Api::V1::TrackedGoalsController < Api::BaseController
   def index
-    render json: current_user.tracked_goals, status: :ok
+    tracked_goals = TrackedGoalsSerializer.render(
+      current_user.tracked_goals.includes(:goal)
+    )
+    render json: tracked_goals, status: :ok
   end
 
   def create
