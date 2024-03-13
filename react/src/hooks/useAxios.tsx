@@ -1,38 +1,49 @@
 import axios from 'axios'
 import { useState } from 'react'
+import { useAuthContext } from './useAuthContext'
 
-export type MakeRequestParams = {
+export type requestConfigParams = {
   method: 'get' | 'post' | 'put' | 'delete'
   url: string
   params?: Record<string, any>
 }
 
-type UseAxiosResult<T> = {
-  makeRequest: (params: MakeRequestParams) => Promise<void>
-  data: T | null
+type handleDataType = (data: {}) => void | []
+
+type UseAxiosResult = {
+  makeRequest: (
+    requestConfig: requestConfigParams,
+    handleData: handleDataType
+  ) => Promise<void>
   loading: boolean
   error: string | null
-  setError: (error: string | null) => void
+  setError: (error: string) => void
 }
 
-export const useAxios = <T,>(): UseAxiosResult<T> => {
-  const [data, setData] = useState<T | null>(null)
+export const useAxios = (): UseAxiosResult => {
+  const { authToken } = useAuthContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const makeRequest = async (params: MakeRequestParams): Promise<void> => {
+  const makeRequest = async (
+    requestConfig: requestConfigParams,
+    handleData: handleDataType
+  ): Promise<void> => {
     try {
       setLoading(true)
       setError(null)
 
       const response = await axios({
-        method: params.method,
-        url: params.url,
-        data: params.method === 'post' ? params.params : undefined,
-        params: params.method === 'get' ? params.params : undefined,
+        method: requestConfig.method,
+        url: requestConfig.url,
+        data:
+          requestConfig.method === 'post' ? requestConfig.params : undefined,
+        params:
+          requestConfig.method === 'get' ? requestConfig.params : undefined,
+        headers: { Authorization: `Bearer ${authToken}` },
       })
 
-      setData(response.data)
+      handleData(response.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error
@@ -45,5 +56,5 @@ export const useAxios = <T,>(): UseAxiosResult<T> => {
     }
   }
 
-  return { makeRequest, data, loading, error, setError }
+  return { makeRequest, loading, error, setError }
 }

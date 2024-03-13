@@ -1,17 +1,21 @@
 import './App.css'
 import LoggedInCheck from './components/LoggedInCheck'
-import Test from './components/Test'
-import { useAuthContext } from './hooks/useAuthContext'
+import Categories from './components/Categories'
+import Goals from './components/goals/Goals'
+import { Route, Routes } from 'react-router-dom'
+import Header from './components/Header'
+import Home from './components/Home'
 
 function App() {
-  const { isLoggedIn, handleLogOut } = useAuthContext()
-  console.log(`isLoggedIn:`, isLoggedIn)
   return (
     <>
-      {isLoggedIn && <button onClick={handleLogOut}>Log out</button>}
-      <h1>Goal Tracker</h1>
+      <Header />
       <LoggedInCheck>
-        <Test />
+        <Routes>
+          <Route path='/categories' element={<Categories />} />
+          <Route path='/goals' element={<Goals />} />
+          <Route path='/' element={<Home />} />
+        </Routes>
       </LoggedInCheck>
     </>
   )
