@@ -26,13 +26,7 @@ const Categories = () => {
       <button onClick={fetchCategories}>Get categories</button>
       {categories &&
         categories.map((category) => {
-          return (
-            <Category
-              key={category.id}
-              name={category.name}
-              description={category.description}
-            />
-          )
+          return <Category key={category.id} name={category.name} />
         })}
     </div>
   )
