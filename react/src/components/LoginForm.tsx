@@ -8,13 +8,9 @@ type loginParams = {
   password: string
 }
 
-type LoginResponse = {
-  auth_token: string
-}
-
 const LoginForm: React.FC = () => {
   const { handleLogIn } = useAuthContext()
-  const { makeRequest, loading, error } = useAxios<LoginResponse>()
+  const { makeRequest, loading, error, setError } = useAxios()
 
   const setTokenResponse = (data) => {
     handleLogIn(data['auth_token'])

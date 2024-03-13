@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, SetStateAction } from 'react'
+import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 
 export type requestConfigParams = {
@@ -17,6 +17,7 @@ type UseAxiosResult = {
   ) => Promise<void>
   loading: boolean
   error: string | null
+  setError: (error: string) => void
 }
 
 export const useAxios = (): UseAxiosResult => {
@@ -55,5 +56,5 @@ export const useAxios = (): UseAxiosResult => {
     }
   }
 
-  return { makeRequest, loading, error }
+  return { makeRequest, loading, error, setError }
 }

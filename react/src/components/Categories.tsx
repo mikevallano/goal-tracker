@@ -22,7 +22,7 @@ const Categories = () => {
     <div>
       <h2>Categories: </h2>
       {error && <p>{error}</p>}
-      {loading && <p>{loading}</p>}
+      {loading && <p>Loading...</p>}
       <button onClick={fetchCategories}>Get categories</button>
       {categories &&
         categories.map((category) => {

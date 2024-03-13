@@ -1,5 +1,5 @@
-import { useEffect, useState, SetStateAction } from 'react'
-import { MakeRequestParams, useAxios } from '../hooks/useAxios'
+import { useState } from 'react'
+import { requestConfigParams, useAxios } from '../hooks/useAxios'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 const SIGNUP_URL = 'http://localhost:3000/api/v1/signup'
@@ -12,15 +12,15 @@ type SignInParams = {
 const SignUpForm = () => {
   const [userCreated, setUserCreated] = useState(false)
   const { handleLogIn } = useAuthContext()
-  const [_error, setError] = useState<string | null>(null)
-  const { makeRequest, loading, error } = useAxios()
+  const { makeRequest, loading, error, setError } = useAxios()
 
   const setTokenResponse = (data) => {
     handleLogIn(data['auth_token'])
+    setUserCreated(true)
   }
 
   const sendRequest = (params: SignInParams) => {
-    const requestParams: MakeRequestParams = {
+    const requestParams: requestConfigParams = {
       method: 'post',
       url: SIGNUP_URL,
       params: params,
