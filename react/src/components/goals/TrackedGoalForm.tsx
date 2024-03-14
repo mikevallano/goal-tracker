@@ -1,5 +1,6 @@
 import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
+import './Goals.css'
 
 const TRACKED_GOAL_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
@@ -43,9 +44,10 @@ const TrackedGoalForm = () => {
     }
   }
   return (
-    <>
+    <div className='add-tracked-goal-form-container'>
       {error && <p>{error}</p>}
       {loading && <p>Loading...</p>}
+      <h4>Track a new goal</h4>
       <form onSubmit={handleSubmit}>
         <section>
           <label>Select Goal</label>
@@ -67,7 +69,7 @@ const TrackedGoalForm = () => {
         </section>
         <button type='submit'>Add Tracked Goal</button>
       </form>
-    </>
+    </div>
   )
 }
 export default TrackedGoalForm

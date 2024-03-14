@@ -1,0 +1,23 @@
+.get-tracked-goals {
+  margin-bottom: 1rem;
+}
+
+.get-tracked-goals select, .add-tracked-goal-form-container  select {
+  display: block;
+  margin-bottom: 10px;
+  height: 1.5rem;
+  width: 10%;
+}
+
+button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  background-color: lightblue;
+}
+
+.add-tracked-goal-form-container label {
+  display: block;
+}
