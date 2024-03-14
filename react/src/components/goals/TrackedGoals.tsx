@@ -1,13 +1,13 @@
 import { useAxios } from '../../hooks/useAxios'
-import { useState } from 'react'
 import TrackedGoal from './TrackedGoal'
 import { TrackedGoalType } from '../../types/GoalTypes'
+import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 
 const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
 const TrackedGoals = () => {
   const { loading, error, makeRequest } = useAxios()
-  const [trackedGoals, setTrackedGoals] = useState()
+  const { trackedGoals, setTrackedGoals } = useGoalManagementContext()
 
   const handleResponse = (data) => {
     setTrackedGoals(data)
