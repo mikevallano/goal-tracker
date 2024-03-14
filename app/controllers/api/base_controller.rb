@@ -29,6 +29,6 @@ class Api::BaseController < ActionController::API
   end
 
   def invalid_auth_token
-    render json: { error: 'Invalid auth token' }, status: :unauthorized
+    render json: { error: 'Invalid Auth token' }, status: :unauthorized
   end
 end
