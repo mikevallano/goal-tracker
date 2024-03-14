@@ -13,14 +13,21 @@ const TrackedGoals = () => {
     setTrackedGoals(data)
   }
 
-  const fetchTrackedGoals = () => {
+  const fetchTrackedGoals = (param: string | null) => {
     makeRequest(
       {
         method: 'get',
-        url: TRACKED_GOALS_URL,
+        url: param ? `${TRACKED_GOALS_URL}?${param}` : TRACKED_GOALS_URL,
       },
       handleResponse
     )
+  }
+
+  const handleDateSelect = (event: React.MouseEvent<HTMLElement>) => {
+    const value = event.target.value
+    if (value) {
+      fetchTrackedGoals(`timeframe=${value}`)
+    }
   }
   return (
     <div>
@@ -28,6 +35,15 @@ const TrackedGoals = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+      <select
+        name='dateSelect'
+        id='trackedGoalDateSelect'
+        onChange={handleDateSelect}
+      >
+        <option value=''>Choose a week</option>
+        <option value='this-week'>This week</option>
+        <option value='last-week'>Last week</option>
+      </select>
       {trackedGoals &&
         trackedGoals.map((trackedGoal: TrackedGoalType) => (
           <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />
