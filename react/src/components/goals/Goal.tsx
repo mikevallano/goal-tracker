@@ -1,6 +1,10 @@
-import { GoalType } from './Goals'
+import { GoalType } from '../../types/GoalTypes'
 
-const Goal = ({ goal }: GoalType) => {
+type GoalProps = {
+  goal: GoalType
+}
+
+const Goal = ({ goal }: GoalProps) => {
   return (
     <div>
       <h4>{goal.name}</h4>
