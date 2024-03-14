@@ -12,6 +12,18 @@ RSpec.describe 'Api::V1::TrackedGoals', type: :request do
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body)[0]['goal_id']).to eq(tracked_goal.goal_id)
     end
+
+    describe 'when passing timeframe param' do
+      it 'returns the correct records' do
+        goal = create(:goal, user: current_user)
+        tracked_goal_this_week = create(:tracked_goal, :week, goal:)
+        _tracked_goal_last_week = create(:tracked_goal, :last_week, goal:)
+        get api_v1_tracked_goals_path, params: { timeframe: 'this-week' }
+        expect(response).to have_http_status(:ok)
+        expect(JSON.parse(response.body).length).to eq(1)
+        expect(JSON.parse(response.body)[0]['id']).to eq(tracked_goal_this_week.id)
+      end
+    end
   end
 
   describe 'POST #create' do

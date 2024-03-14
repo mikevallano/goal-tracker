@@ -17,3 +17,13 @@ p.login-signup-link {
 form section {
   margin: 5px 0;
 }
+
+header.header {
+  margin-bottom: 1rem;
+}
+
+header.header span {
+  color: blue;
+  text-decoration: underline;
+  margin-right: 10px;
+}

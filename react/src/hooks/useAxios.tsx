@@ -21,7 +21,7 @@ type UseAxiosResult = {
 }
 
 export const useAxios = (): UseAxiosResult => {
-  const { authToken } = useAuthContext()
+  const { authToken, handleLogOut } = useAuthContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -47,7 +47,11 @@ export const useAxios = (): UseAxiosResult => {
     } catch (error) {
       if (axios.isAxiosError(error)) {
         const axiosError = error
-        setError(axiosError.response?.data?.error || 'Something went wrong...')
+        const errorText = axiosError.response?.data?.error
+        if (errorText.includes('Auth token')) {
+          handleLogOut()
+        }
+        setError(errorText || 'Something went wrong...')
       } else {
         setError('Something went wrong...')
       }
