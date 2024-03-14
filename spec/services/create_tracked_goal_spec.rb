@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CreateTrackedGoal, type: :service do
-  subject(:result) { described_class.call!(goal_id:, timeframe_type:) }
+  subject(:result) { described_class.call!(goal_id:, timeframe_type:, timeframe: 'this-week') }
 
   let(:goal) { create(:goal) }
   let(:goal_id) { goal.id }

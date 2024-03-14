@@ -7,10 +7,7 @@ type TrackedGoalParams = {
 const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
   return (
     <div>
-      <p>
-        {trackedGoal.goal}{' '}
-        <span> tracked by: {trackedGoal.timeframe_type}</span>
-      </p>
+      <p>{trackedGoal.goal}</p>
     </div>
   )
 }

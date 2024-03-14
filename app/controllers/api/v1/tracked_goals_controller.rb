@@ -10,7 +10,8 @@ class Api::V1::TrackedGoalsController < Api::BaseController
   def create
     result = CreateTrackedGoal.call!(**tracked_goal_params)
     if result.success?
-      render json: result.tracked_goal, status: :ok
+      tracked_goal = TrackedGoalSerializer.call!(tracked_goal: result.tracked_goal)
+      render json: tracked_goal, status: :ok
     else
       render json: { error: result.error_message }, status: :precondition_failed
     end
@@ -19,6 +20,6 @@ class Api::V1::TrackedGoalsController < Api::BaseController
   private
 
   def tracked_goal_params
-    params.permit(:goal_id, :timeframe_type).to_h.symbolize_keys
+    params.permit(:goal_id, :timeframe, :timeframe_type).to_h.symbolize_keys
   end
 end

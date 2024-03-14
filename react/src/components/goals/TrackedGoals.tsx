@@ -1,13 +1,15 @@
 import { useAxios } from '../../hooks/useAxios'
-import { useState } from 'react'
 import TrackedGoal from './TrackedGoal'
 import { TrackedGoalType } from '../../types/GoalTypes'
+import useGoalManagementContext from '../../hooks/useGoalManagementContext'
+import TrackedGoalForm from './TrackedGoalForm'
+import './Goals.css'
 
 const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
 const TrackedGoals = () => {
   const { loading, error, makeRequest } = useAxios()
-  const [trackedGoals, setTrackedGoals] = useState()
+  const { trackedGoals, setTrackedGoals } = useGoalManagementContext()
 
   const handleResponse = (data) => {
     setTrackedGoals(data)
@@ -34,20 +36,25 @@ const TrackedGoals = () => {
       <h2>Tracked Goals</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
-      <select
-        name='dateSelect'
-        id='trackedGoalDateSelect'
-        onChange={handleDateSelect}
-      >
-        <option value=''>Choose a week</option>
-        <option value='this-week'>This week</option>
-        <option value='last-week'>Last week</option>
-      </select>
-      {trackedGoals &&
-        trackedGoals.map((trackedGoal: TrackedGoalType) => (
-          <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />
-        ))}
+      <div className='get-tracked-goals'>
+        <select
+          name='dateSelect'
+          id='trackedGoalDateSelect'
+          onChange={handleDateSelect}
+        >
+          <option value=''>Choose a week</option>
+          <option value='this-week'>This week</option>
+          <option value='last-week'>Last week</option>
+        </select>
+        <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+      </div>
+      <TrackedGoalForm />
+      <div className='tracked-goals-container'>
+        {trackedGoals &&
+          trackedGoals.map((trackedGoal: TrackedGoalType) => (
+            <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />
+          ))}
+      </div>
     </div>
   )
 }

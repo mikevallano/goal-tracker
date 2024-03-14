@@ -40,9 +40,12 @@ export const useAxios = (): UseAxiosResult => {
           requestConfig.method === 'post' ? requestConfig.params : undefined,
         params:
           requestConfig.method === 'get' ? requestConfig.params : undefined,
-        headers: { Authorization: `Bearer ${authToken}` },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${authToken}`,
+        },
       })
-
+      console.log('response.data: ', response.data)
       handleData(response.data)
     } catch (error) {
       if (axios.isAxiosError(error)) {

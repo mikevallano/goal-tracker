@@ -1,17 +1,12 @@
 import { useAxios } from '../../hooks/useAxios'
-import { useState } from 'react'
+import useGoalManagmentContext from '../../hooks/useGoalManagementContext'
 import Goal from './Goal'
 
 const GOALS_URL = 'http://localhost:3000/api/v1/goals'
 
-export type GoalType = {
-  name: string
-  description: string
-}
-
 const Goals = () => {
   const { loading, error, makeRequest } = useAxios()
-  const [goals, setGoals] = useState([])
+  const { goals, setGoals } = useGoalManagmentContext()
 
   const fetchGoals = () => {
     makeRequest(
