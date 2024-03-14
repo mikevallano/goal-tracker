@@ -1,4 +1,73 @@
+import { useAxios } from '../../hooks/useAxios'
+import useGoalManagementContext from '../../hooks/useGoalManagementContext'
+
+const TRACKED_GOAL_URL = 'http://localhost:3000/api/v1/tracked_goals'
+
+type TrackedGoalCreateParams = {
+  goal_id: string
+  timeframe: string
+  timeframe_type: string
+}
+
 const TrackedGoalForm = () => {
-  return <div>TrackedGoalForm</div>
+  const { error, setError, loading, makeRequest } = useAxios()
+  const { goals, setTrackedGoals } = useGoalManagementContext()
+
+  const handleCreate = (data) => {
+    setTrackedGoals((prev) => [data, ...prev])
+  }
+
+  const sendRequest = (params: TrackedGoalCreateParams) => {
+    const config = {
+      method: 'post',
+      url: TRACKED_GOAL_URL,
+      params: params,
+    }
+    console.log('params: ', params)
+    makeRequest(config, handleCreate)
+  }
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    console.log('got submitted')
+    const form = event.target as HTMLFormElement
+    const formData = new FormData(form)
+    const goalId = formData.get('goalId') as string
+    const timeframe = formData.get('timeframe') as string
+
+    if (goalId === '' || timeframe === '') {
+      setError('Must enter goalId and timeframe')
+    } else {
+      sendRequest({ goal_id: goalId, timeframe, timeframe_type: 'week' })
+      form.reset()
+    }
+  }
+  return (
+    <>
+      {error && <p>{error}</p>}
+      {loading && <p>Loading...</p>}
+      <form onSubmit={handleSubmit}>
+        <section>
+          <label>Select Goal</label>
+          <select name='goalId' id='goal'>
+            {goals.map((goal) => {
+              return (
+                <option key={goal.id} value={goal.id}>
+                  {goal.name}
+                </option>
+              )
+            })}
+          </select>
+        </section>
+        <section>
+          <select name='timeframe'>
+            <option value='this-week'>This Week</option>
+            <option value='next-week'>Next Week</option>
+          </select>
+        </section>
+        <button type='submit'>Add Tracked Goal</button>
+      </form>
+    </>
+  )
 }
 export default TrackedGoalForm

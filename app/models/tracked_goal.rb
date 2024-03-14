@@ -18,4 +18,7 @@ class TrackedGoal < ApplicationRecord
     start_date = date.beginning_of_week(user.week_starts_on_day_sym).beginning_of_day
     where(start_date:, goal_id: user.goals).week
   }
+  scope :this_week, lambda { |user|
+    by_week_by_user(Date.current, user)
+  }
 end

@@ -2,6 +2,7 @@ import { useAxios } from '../../hooks/useAxios'
 import TrackedGoal from './TrackedGoal'
 import { TrackedGoalType } from '../../types/GoalTypes'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
+import TrackedGoalForm from './TrackedGoalForm'
 
 const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
@@ -44,6 +45,7 @@ const TrackedGoals = () => {
         <option value='this-week'>This week</option>
         <option value='last-week'>Last week</option>
       </select>
+      <TrackedGoalForm />
       {trackedGoals &&
         trackedGoals.map((trackedGoal: TrackedGoalType) => (
           <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />
