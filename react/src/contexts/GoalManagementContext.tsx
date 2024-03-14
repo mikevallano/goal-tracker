@@ -1,11 +1,11 @@
 import { createContext, useState } from 'react'
 
-export const CategoriesGoalsContext = createContext({
+export const GoalManagementContext = createContext({
   categories: [],
   goals: [],
 })
 
-export const CategoriesGoalsProvider = ({ children }) => {
+export const GoalManagementProvider = ({ children }) => {
   const [categories, setCategories] = useState([])
   const [goals, setGoals] = useState([])
 
@@ -16,8 +16,8 @@ export const CategoriesGoalsProvider = ({ children }) => {
     setGoals,
   }
   return (
-    <CategoriesGoalsContext.Provider value={value}>
+    <GoalManagementContext.Provider value={value}>
       {children}
-    </CategoriesGoalsContext.Provider>
+    </GoalManagementContext.Provider>
   )
 }

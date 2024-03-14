@@ -1,12 +1,12 @@
 import { useAxios } from '../hooks/useAxios'
-import useCategoriesGoalsContext from '../hooks/useCategoriesGoalsContext'
+import useGoalManagementContext from '../hooks/useGoalManagementContext'
 import Category from './Category'
 
 const CATEGORIES_URL = 'http://localhost:3000/api/v1/categories'
 
 const Categories = () => {
   const { makeRequest, loading, error } = useAxios()
-  const { categories, setCategories } = useCategoriesGoalsContext()
+  const { categories, setCategories } = useGoalManagementContext()
 
   const fetchCategories = () => {
     makeRequest(
