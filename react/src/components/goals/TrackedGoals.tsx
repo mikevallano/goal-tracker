@@ -1,20 +1,9 @@
 import { useAxios } from '../../hooks/useAxios'
 import { useState } from 'react'
 import TrackedGoal from './TrackedGoal'
+import { TrackedGoalType } from '../../types/GoalTypes'
 
 const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
-
-export type TrackedGoalType = {
-  created_at: string
-  end_date: string | null
-  goal: string
-  goal_id: number
-  id: number
-  progress_rating: number | null
-  start_date: string | null
-  timeframe_type: string
-  updated_at: string
-}
 
 const TrackedGoals = () => {
   const { loading, error, makeRequest } = useAxios()

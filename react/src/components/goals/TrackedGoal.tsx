@@ -1,4 +1,4 @@
-import { TrackedGoalType } from './TrackedGoals'
+import { TrackedGoalType } from '../../types/GoalTypes'
 
 type TrackedGoalParams = {
   trackedGoal: TrackedGoalType
