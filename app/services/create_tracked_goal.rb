@@ -39,7 +39,7 @@ class CreateTrackedGoal < BaseService
       if @timeframe == 'this-week'
         Date.current.beginning_of_week(@goal.user.week_starts_on_day_sym)
       elsif @timeframe == 'next-week'
-        1.week.ago.beginning_of_week(@goal.user.week_starts_on_day_sym)
+        1.week.from_now.beginning_of_week(@goal.user.week_starts_on_day_sym)
       end
     else
       raise 'invalid timeframe type'

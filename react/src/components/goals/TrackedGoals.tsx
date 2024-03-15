@@ -4,12 +4,14 @@ import { TrackedGoalType } from '../../types/GoalTypes'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import TrackedGoalForm from './TrackedGoalForm'
 import './Goals.css'
+import { useState } from 'react'
 
 const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
 const TrackedGoals = () => {
   const { loading, error, makeRequest } = useAxios()
   const { trackedGoals, setTrackedGoals } = useGoalManagementContext()
+  const [addNewGoal, setAddNewGoal] = useState(false)
 
   const handleResponse = (data) => {
     setTrackedGoals(data)
@@ -45,10 +47,16 @@ const TrackedGoals = () => {
           <option value=''>Choose a week</option>
           <option value='this-week'>This week</option>
           <option value='last-week'>Last week</option>
+          <option value='next-week'>Next week</option>
         </select>
-        <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+        {!trackedGoals && (
+          <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+        )}
       </div>
-      <TrackedGoalForm />
+      {!addNewGoal && (
+        <button onClick={() => setAddNewGoal(true)}>Add new goal</button>
+      )}
+      {addNewGoal && <TrackedGoalForm />}
       <div className='tracked-goals-container'>
         {trackedGoals &&
           trackedGoals.map((trackedGoal: TrackedGoalType) => (
