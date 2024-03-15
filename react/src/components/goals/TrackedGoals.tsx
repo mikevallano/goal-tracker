@@ -56,7 +56,7 @@ const TrackedGoals = () => {
       {!addNewGoal && (
         <button onClick={() => setAddNewGoal(true)}>Add new goal</button>
       )}
-      {addNewGoal && <TrackedGoalForm />}
+      {addNewGoal && <TrackedGoalForm setAddNewGoal={setAddNewGoal} />}
       <div className='tracked-goals-container'>
         {trackedGoals &&
           trackedGoals.map((trackedGoal: TrackedGoalType) => (
