@@ -57,4 +57,27 @@ RSpec.describe 'Api::V1::TrackedGoals', type: :request do
       end
     end
   end
+
+  describe 'PUT #update' do
+    context 'when success' do
+      it 'updates the tracked goal' do
+        tracked_goal = create(:tracked_goal, goal: create(:goal, user: current_user))
+        new_notes = 'updated notes'
+        put api_v1_tracked_goal_path(tracked_goal), params: { notes: new_notes }
+        expect(response).to have_http_status(:success)
+        expect(JSON.parse(response.body)['notes']).to eq(new_notes)
+      end
+    end
+
+    context 'when failure' do
+      it 'returns a failure' do
+        other_user = create(:user)
+        tracked_goal = create(:tracked_goal, goal: create(:goal, user: other_user))
+        new_notes = 'updated notes'
+        put api_v1_tracked_goal_path(tracked_goal), params: { notes: new_notes }
+        expect(response).to have_http_status(:precondition_failed)
+        expect(JSON.parse(response.body)['error']).to be_present
+      end
+    end
+  end
 end

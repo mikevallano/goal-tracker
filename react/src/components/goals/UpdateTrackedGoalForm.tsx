@@ -1,14 +1,19 @@
 import { TrackedGoalType } from '../../types/GoalTypes'
 import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
+import { Dispatch } from 'react'
 
 const UPDATE_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
 type UpdateTrackedGoalFormProps = {
   trackedGoal: TrackedGoalType
+  setIsEditing: Dispatch<boolean>
 }
 
-const UpdateTrackedGoalForm = ({ trackedGoal }: UpdateTrackedGoalFormProps) => {
+const UpdateTrackedGoalForm = ({
+  trackedGoal,
+  setIsEditing,
+}: UpdateTrackedGoalFormProps) => {
   const { loading, error, makeRequest } = useAxios()
   const { setTrackedGoals } = useGoalManagementContext()
 
@@ -24,6 +29,7 @@ const UpdateTrackedGoalForm = ({ trackedGoal }: UpdateTrackedGoalFormProps) => {
     const config = {
       url: `${UPDATE_URL}/${trackedGoal.id}`,
       method: 'put',
+      params: params,
     }
     makeRequest(config, updateTrackedGoal)
   }
@@ -34,16 +40,15 @@ const UpdateTrackedGoalForm = ({ trackedGoal }: UpdateTrackedGoalFormProps) => {
     const form = event.target as HTMLFormElement
     const formData = new FormData(form)
     const notes = formData.get('notes') as string
-    const progress_rating = formData.get('progress_rating') as string
+    const progress_rating = formData.get('progressRating') as string
 
     if (
       notes === trackedGoal.notes &&
       progress_rating == trackedGoal.progress_rating.toString()
     ) {
-      // TODO: handle this case
-      console.log('no change made')
+      setIsEditing(false)
     } else {
-      // setIsEditing(false) // TODO
+      setIsEditing(false)
       sendRequest({ notes: notes, progress_rating: progress_rating })
       form.reset()
     }
@@ -56,14 +61,14 @@ const UpdateTrackedGoalForm = ({ trackedGoal }: UpdateTrackedGoalFormProps) => {
       <form onSubmit={handleSubmit}>
         <section>
           <label htmlFor='notes'>Notes</label>
-          <input type='text' name='notes' placeholder={trackedGoal.notes} />
+          <input type='text' name='notes' defaultValue={trackedGoal.notes} />
         </section>
         <section>
           <label htmlFor='progress-rating'>Progress Rating</label>
           <input
             type='number'
-            name='progress-rating'
-            placeholder={trackedGoal.progress_rating}
+            name='progressRating'
+            defaultValue={trackedGoal.progress_rating}
             min='1'
             max='5'
             step='1'
