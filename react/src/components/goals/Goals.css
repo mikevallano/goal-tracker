@@ -21,3 +21,11 @@ button {
 .add-tracked-goal-form-container label {
   display: block;
 }
+
+.tracked-goals-container {
+  margin-top: 1rem;
+}
+
+.tracked-goal-contianer{
+  margin-bottom: 1rem;
+}

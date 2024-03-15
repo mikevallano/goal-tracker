@@ -68,7 +68,7 @@ const UpdateTrackedGoalForm = ({
           <input
             type='number'
             name='progressRating'
-            defaultValue={trackedGoal.progress_rating}
+            defaultValue={trackedGoal.progress_rating || 1}
             min='1'
             max='5'
             step='1'
