@@ -11,9 +11,10 @@ export type GoalType = {
 
 export type TrackedGoalType = {
   id: number
-  goal: string
+  goal: string // TODO: rename to goal_name
   goal_id: number
   progress_rating: number | null
+  notes: string | null
   start_date: string | null
   end_date: string | null
   timeframe_type: string
