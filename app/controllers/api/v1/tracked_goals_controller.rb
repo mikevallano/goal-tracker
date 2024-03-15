@@ -17,6 +17,21 @@ class Api::V1::TrackedGoalsController < Api::BaseController
     end
   end
 
+  def update
+    # WIP: hard coding to test from frontend
+    tracked_goal = TrackedGoal.find_by(id: params[:id])
+    notes_arr = [
+      'did a lot',
+      'did somewhat',
+      'went really well',
+      'not really',
+      'nope'
+    ]
+    tracked_goal.update(progress_rating: rand(1..5), notes: notes_arr.sample)
+    result = TrackedGoalSerializer.call!(tracked_goal:)
+    render json: result, status: :ok
+  end
+
   private
 
   def tracked_goal_params
