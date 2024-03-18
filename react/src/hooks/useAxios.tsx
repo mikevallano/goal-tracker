@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { useAuthContext } from './useAuthContext'
 
 export type requestConfigParams = {
@@ -25,45 +25,48 @@ export const useAxios = (): UseAxiosResult => {
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
-  const makeRequest = async (
-    requestConfig: requestConfigParams,
-    handleData: handleDataType
-  ): Promise<void> => {
-    try {
-      setLoading(true)
-      setError(null)
+  const makeRequest = useCallback(
+    async (
+      requestConfig: requestConfigParams,
+      handleData: handleDataType
+    ): Promise<void> => {
+      try {
+        setLoading(true)
+        setError(null)
 
-      const response = await axios({
-        method: requestConfig.method,
-        url: requestConfig.url,
-        data:
-          requestConfig.method === 'post' || requestConfig.method === 'put'
-            ? requestConfig.params
-            : undefined,
-        params:
-          requestConfig.method === 'get' ? requestConfig.params : undefined,
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${authToken}`,
-        },
-      })
-      console.log('response.data: ', response.data)
-      handleData(response.data)
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        const axiosError = error
-        const errorText = axiosError.response?.data?.error
-        if (errorText.includes('Auth token')) {
-          handleLogOut()
+        const response = await axios({
+          method: requestConfig.method,
+          url: requestConfig.url,
+          data:
+            requestConfig.method === 'post' || requestConfig.method === 'put'
+              ? requestConfig.params
+              : undefined,
+          params:
+            requestConfig.method === 'get' ? requestConfig.params : undefined,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${authToken}`,
+          },
+        })
+        console.log('response.data: ', response.data)
+        handleData(response.data)
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const axiosError = error
+          const errorText = axiosError.response?.data?.error
+          if (errorText.includes('Auth token')) {
+            handleLogOut()
+          }
+          setError(errorText || 'Something went wrong...')
+        } else {
+          setError('Something went wrong...')
         }
-        setError(errorText || 'Something went wrong...')
-      } else {
-        setError('Something went wrong...')
+      } finally {
+        setLoading(false)
       }
-    } finally {
-      setLoading(false)
-    }
-  }
+    },
+    []
+  )
 
   return { makeRequest, loading, error, setError }
 }

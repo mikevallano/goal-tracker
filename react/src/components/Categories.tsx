@@ -1,29 +1,26 @@
+import { useEffect } from 'react'
 import { useAxios } from '../hooks/useAxios'
+import useFetchCategories from '../hooks/useFetchCategories'
 import useGoalManagementContext from '../hooks/useGoalManagementContext'
 import Category from './Category'
 
-const CATEGORIES_URL = 'http://localhost:3000/api/v1/categories'
-
 const Categories = () => {
-  const { makeRequest, loading, error } = useAxios()
-  const { categories, setCategories } = useGoalManagementContext()
+  const { loading, error } = useAxios()
+  const { categories } = useGoalManagementContext()
+  const { fetchCategories } = useFetchCategories()
 
-  const fetchCategories = () => {
-    makeRequest(
-      {
-        method: 'get',
-        url: CATEGORIES_URL,
-      },
-      setCategories
-    )
-  }
+  useEffect(() => {
+    {
+      categories.length > 0 && fetchCategories()
+    }
+  }, [])
 
   return (
     <div>
       <h2>Categories: </h2>
       {error && <p>{error}</p>}
       {loading && <p>Loading...</p>}
-      <button onClick={fetchCategories}>Get categories</button>
+      {!categories && <button onClick={fetchCategories}>Get categories</button>}
       {categories &&
         categories.map((category) => {
           return <Category key={category.id} name={category.name} />
