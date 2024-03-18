@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react'
+import { createContext, useState, ReactNode } from 'react'
 
 export const GoalManagementContext = createContext({
   categories: [],
@@ -6,7 +6,13 @@ export const GoalManagementContext = createContext({
   trackedGoals: [],
 })
 
-export const GoalManagementProvider = ({ children }) => {
+type GoalManagementProviderProps = {
+  children: ReactNode
+}
+
+export const GoalManagementProvider = ({
+  children,
+}: GoalManagementProviderProps) => {
   const [categories, setCategories] = useState([])
   const [goals, setGoals] = useState([])
   const [trackedGoals, setTrackedGoals] = useState([])
