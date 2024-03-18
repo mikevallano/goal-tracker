@@ -10,7 +10,9 @@ const Goals = () => {
   const { fetchGoals } = useFetchGoals()
 
   useEffect(() => {
-    fetchGoals()
+    {
+      !goals && fetchGoals()
+    }
   }, [])
 
   return (

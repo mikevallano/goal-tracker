@@ -10,7 +10,9 @@ const Categories = () => {
   const { fetchCategories } = useFetchCategories()
 
   useEffect(() => {
-    fetchCategories()
+    {
+      !categories && fetchCategories()
+    }
   }, [])
 
   return (

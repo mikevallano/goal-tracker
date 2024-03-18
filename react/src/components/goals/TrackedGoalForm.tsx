@@ -1,7 +1,8 @@
-import { Dispatch } from 'react'
+import { Dispatch, useEffect } from 'react'
 import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import './Goals.css'
+import useFetchGoals from '../../hooks/useFetchGoals'
 
 const TRACKED_GOAL_URL = 'http://localhost:3000/api/v1/tracked_goals'
 
@@ -18,6 +19,13 @@ type TrackedGoalFormProps = {
 const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
   const { error, setError, loading, makeRequest } = useAxios()
   const { goals, setTrackedGoals } = useGoalManagementContext()
+  const { fetchGoals } = useFetchGoals()
+
+  useEffect(() => {
+    {
+      !goals && fetchGoals()
+    }
+  }, [])
 
   const handleCreate = (data: {}) => {
     setTrackedGoals((prev: []) => [data, ...prev])
