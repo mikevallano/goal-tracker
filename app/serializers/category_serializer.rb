@@ -1,7 +1,7 @@
 class CategorySerializer < BaseSerializer
-  def initialize(category:, **options)
+  def initialize(category:, basic: false)
     @category = category
-    @options = options
+    @basic = basic
   end
 
   def call!
@@ -16,7 +16,7 @@ class CategorySerializer < BaseSerializer
   end
 
   def serialized_result
-    return basic_result if @options[:basic]
+    return basic_result if @basic
     basic_result.merge(
       user_id: @category.user_id,
       created_at: @category.created_at,
