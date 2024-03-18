@@ -1,7 +1,7 @@
 class GoalSerializer < BaseSerializer
-  def initialize(goal:, **options)
+  def initialize(goal:, basic: false)
     @goal = goal
-    @options = options
+    @basic = basic
   end
 
   def call!
@@ -18,7 +18,7 @@ class GoalSerializer < BaseSerializer
   end
 
   def serialized_result
-    return basic_result if @options[:basic]
+    return basic_result if @basic
     basic_result.merge(
       description: @goal.description,
       user_id: @goal.user_id,
