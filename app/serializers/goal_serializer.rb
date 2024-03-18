@@ -25,7 +25,8 @@ class GoalSerializer < BaseSerializer
       category_id: @goal.category_id,
       archived_at: @goal.archived_at,
       created_at: @goal.created_at,
-      updated_at: @goal.updated_at
+      updated_at: @goal.updated_at,
+      category: CategorySerializer.call!(category: @goal.category, basic: true)
     )
   end
 end
