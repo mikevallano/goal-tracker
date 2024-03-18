@@ -16,6 +16,16 @@ FactoryBot.define do
       start_date { Date.current.beginning_of_week(user.week_starts_on_day_sym).beginning_of_day }
       end_date { Date.current.end_of_week.end_of_day }
     end
+    trait :this_week do
+      timeframe_type { 'week' }
+      start_date { Date.current.beginning_of_week(user.week_starts_on_day_sym).beginning_of_day }
+      end_date { Date.current.end_of_week.end_of_day }
+    end
+    trait :next_week do
+      timeframe_type { 'week' }
+      start_date { 1.week.from_now.beginning_of_week(user.week_starts_on_day_sym).beginning_of_day }
+      end_date { 1.week.from_now.end_of_week.end_of_day }
+    end
     trait :last_week do
       timeframe_type { 'week' }
       start_date { 1.week.ago.beginning_of_week(user.week_starts_on_day_sym).beginning_of_day }
