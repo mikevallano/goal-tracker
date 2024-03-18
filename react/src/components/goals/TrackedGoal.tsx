@@ -11,7 +11,7 @@ const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
   const [isEditing, setIsEditing] = useState(false)
   return (
     <div className='tracked-goal-contianer'>
-      <h4>{trackedGoal.goal}</h4>
+      <h4>{trackedGoal.goal.name}</h4>
       {!isEditing && (
         <>
           <p>Notes: {trackedGoal.notes}</p>

@@ -21,7 +21,7 @@ class TrackedGoalSerializer < BaseSerializer
       created_at: @tracked_goal.created_at,
       updated_at: @tracked_goal.updated_at,
       notes: @tracked_goal.notes,
-      goal_name: @tracked_goal.goal.name
+      goal: GoalSerializer.call!(goal: @tracked_goal.goal, basic: true)
     }
   end
   # rubocop:enable Metrics/MethodLength
