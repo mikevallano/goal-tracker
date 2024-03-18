@@ -1,10 +1,15 @@
 class Api::V1::TrackedGoalsController < Api::BaseController
   def index
-    tracked_goals = TrackedGoalsSerializer.call!(
-      user: current_user,
-      timeframe: params[:timeframe] # TODO: decide how to handle
-    )
-    render json: tracked_goals, status: :ok
+    filter_res = TrackedGoalsFilter.call!(user: current_user, filter: params[:timeframe])
+    if filter_res.success?
+      serialized_tracked_goals =
+        filter_res.tracked_goals.includes(:goal).map do |tracked_goal|
+          TrackedGoalSerializer.call!(tracked_goal:)
+        end
+      render json: serialized_tracked_goals, status: :ok
+    else
+      render json: { error: filter_res.error_message }, status: :precondition_failed
+    end
   end
 
   def create

@@ -1,12 +1,15 @@
 class Api::V1::GoalsController < Api::BaseController
   def index
-    render json: current_user.goals, status: :ok
+    serialized_goals = current_user.goals.includes(:category).map do |goal|
+      GoalSerializer.call!(goal:)
+    end
+    render json: serialized_goals, status: :ok
   end
 
   def create
     result = CreateGoal.call!(**goal_params.merge(user_id: current_user.id))
     if result.success?
-      render json: result.goal, status: :ok
+      render json: GoalSerializer.call!(goal: result.goal), status: :ok
     else
       render json: { error: result.error_message }, status: :precondition_failed
     end
