@@ -10,9 +10,7 @@ const Categories = () => {
   const { fetchCategories } = useFetchCategories()
 
   useEffect(() => {
-    {
-      categories.length > 0 && fetchCategories()
-    }
+    fetchCategories()
   }, [])
 
   return (

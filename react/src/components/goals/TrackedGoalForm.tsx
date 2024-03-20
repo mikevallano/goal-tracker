@@ -81,7 +81,9 @@ const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
             <option value='next-week'>Next Week</option>
           </select>
         </section>
-        <button type='submit'>Add Tracked Goal</button>
+        <button className='btn btn-sm' type='submit'>
+          Add Tracked Goal
+        </button>
       </form>
     </div>
   )

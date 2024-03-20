@@ -5,32 +5,18 @@ import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import TrackedGoalForm from './TrackedGoalForm'
 import './Goals.css'
 import { useState } from 'react'
-
-const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
+import useFetchTrackedGoals from '../../hooks/useFetchTrackedGoals'
 
 const TrackedGoals = () => {
-  const { loading, error, makeRequest } = useAxios()
-  const { trackedGoals, setTrackedGoals } = useGoalManagementContext()
+  const { loading, error } = useAxios()
+  const { trackedGoals } = useGoalManagementContext()
   const [addNewGoal, setAddNewGoal] = useState(false)
-
-  const handleResponse = (data) => {
-    setTrackedGoals(data)
-  }
-
-  const fetchTrackedGoals = (param: string | null) => {
-    makeRequest(
-      {
-        method: 'get',
-        url: param ? `${TRACKED_GOALS_URL}?${param}` : TRACKED_GOALS_URL,
-      },
-      handleResponse
-    )
-  }
+  const { fetchTrackedGoals } = useFetchTrackedGoals()
 
   const handleDateSelect = (event: React.MouseEvent<HTMLElement>) => {
     const value = event.target.value
     if (value) {
-      fetchTrackedGoals(`timeframe=${value}`)
+      fetchTrackedGoals(value)
     }
   }
   return (
@@ -50,11 +36,15 @@ const TrackedGoals = () => {
           <option value='next-week'>Next week</option>
         </select>
         {!trackedGoals && (
-          <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+          <button className='btn btn-sm' onClick={fetchTrackedGoals}>
+            Get Tracked Goals
+          </button>
         )}
       </div>
       {!addNewGoal && (
-        <button onClick={() => setAddNewGoal(true)}>Add new goal</button>
+        <button className='btn btn-sm' onClick={() => setAddNewGoal(true)}>
+          Add new goal
+        </button>
       )}
       {addNewGoal && <TrackedGoalForm setAddNewGoal={setAddNewGoal} />}
       <div className='tracked-goals-container'>

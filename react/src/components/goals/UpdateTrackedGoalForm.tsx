@@ -74,7 +74,9 @@ const UpdateTrackedGoalForm = ({
             step='1'
           />
         </section>
-        <button type='submit'>Update</button>
+        <button className='btn btn-sm' type='submit'>
+          Update
+        </button>
       </form>
     </div>
   )
