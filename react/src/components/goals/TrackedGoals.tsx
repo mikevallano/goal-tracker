@@ -4,38 +4,30 @@ import { TrackedGoalType } from '../../types/GoalTypes'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import TrackedGoalForm from './TrackedGoalForm'
 import './Goals.css'
-import { useState } from 'react'
-
-const TRACKED_GOALS_URL = 'http://localhost:3000/api/v1/tracked_goals'
+import { useState, useEffect } from 'react'
+import useFetchTrackedGoals from '../../hooks/useFetchTrackedGoals'
 
 const TrackedGoals = () => {
-  const { loading, error, makeRequest } = useAxios()
-  const { trackedGoals, setTrackedGoals } = useGoalManagementContext()
+  const { loading, error } = useAxios()
+  const { trackedGoals } = useGoalManagementContext()
   const [addNewGoal, setAddNewGoal] = useState(false)
+  const [week, setWeek] = useState('this-week')
+  const { fetchTrackedGoals } = useFetchTrackedGoals()
 
-  const handleResponse = (data) => {
-    setTrackedGoals(data)
-  }
-
-  const fetchTrackedGoals = (param: string | null) => {
-    makeRequest(
-      {
-        method: 'get',
-        url: param ? `${TRACKED_GOALS_URL}?${param}` : TRACKED_GOALS_URL,
-      },
-      handleResponse
-    )
-  }
+  useEffect(() => {
+    fetchTrackedGoals(week)
+  }, [week])
 
   const handleDateSelect = (event: React.MouseEvent<HTMLElement>) => {
     const value = event.target.value
-    if (value) {
-      fetchTrackedGoals(`timeframe=${value}`)
+    if (value && value != week) {
+      setWeek(value)
+      fetchTrackedGoals(value)
     }
   }
   return (
     <div>
-      <h2>Tracked Goals</h2>
+      <h2>Tracked Goals for {week}</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <div className='get-tracked-goals'>
@@ -43,6 +35,7 @@ const TrackedGoals = () => {
           name='dateSelect'
           id='trackedGoalDateSelect'
           onChange={handleDateSelect}
+          value={week}
         >
           <option value=''>Choose a week</option>
           <option value='this-week'>This week</option>
@@ -50,13 +43,23 @@ const TrackedGoals = () => {
           <option value='next-week'>Next week</option>
         </select>
         {!trackedGoals && (
-          <button onClick={fetchTrackedGoals}>Get Tracked Goals</button>
+          <button className='btn btn-sm' onClick={fetchTrackedGoals}>
+            Get Tracked Goals
+          </button>
         )}
       </div>
       {!addNewGoal && (
-        <button onClick={() => setAddNewGoal(true)}>Add new goal</button>
+        <button className='btn btn-sm' onClick={() => setAddNewGoal(true)}>
+          Add new goal
+        </button>
       )}
-      {addNewGoal && <TrackedGoalForm setAddNewGoal={setAddNewGoal} />}
+      {addNewGoal && (
+        <TrackedGoalForm
+          setAddNewGoal={setAddNewGoal}
+          setWeek={setWeek}
+          week={week}
+        />
+      )}
       <div className='tracked-goals-container'>
         {trackedGoals &&
           trackedGoals.map((trackedGoal: TrackedGoalType) => (

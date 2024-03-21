@@ -9,13 +9,17 @@
   width: 10%;
 }
 
-button {
+.btn {
   display: inline-block;
   cursor: pointer;
   padding: 10px 30px;
   border: none;
   border-radius: 5px;
   background-color: lightblue;
+}
+
+.btn.btn-sm {
+  padding: 5px 10px;
 }
 
 .add-tracked-goal-form-container label {

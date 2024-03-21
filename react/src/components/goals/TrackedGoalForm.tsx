@@ -14,17 +14,21 @@ type TrackedGoalCreateParams = {
 
 type TrackedGoalFormProps = {
   setAddNewGoal: Dispatch<boolean>
+  setWeek: Dispatch<string>
+  week: string
 }
 
-const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
+const TrackedGoalForm = ({
+  setAddNewGoal,
+  setWeek,
+  week,
+}: TrackedGoalFormProps) => {
   const { error, setError, loading, makeRequest } = useAxios()
   const { goals, setTrackedGoals } = useGoalManagementContext()
   const { fetchGoals } = useFetchGoals()
 
   useEffect(() => {
-    {
-      goals.length > 0 && fetchGoals()
-    }
+    fetchGoals()
   }, [])
 
   const handleCreate = (data: {}) => {
@@ -53,6 +57,7 @@ const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
       setError('Must enter goalId and timeframe')
     } else {
       setAddNewGoal(false)
+      setWeek(timeframe)
       sendRequest({ goal_id: goalId, timeframe, timeframe_type: 'week' })
       form.reset()
     }
@@ -76,12 +81,14 @@ const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
           </select>
         </section>
         <section>
-          <select name='timeframe'>
+          <select name='timeframe' value={week}>
             <option value='this-week'>This Week</option>
             <option value='next-week'>Next Week</option>
           </select>
         </section>
-        <button type='submit'>Add Tracked Goal</button>
+        <button className='btn btn-sm' type='submit'>
+          Add Tracked Goal
+        </button>
       </form>
     </div>
   )
