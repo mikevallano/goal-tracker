@@ -15,9 +15,14 @@ type TrackedGoalCreateParams = {
 type TrackedGoalFormProps = {
   setAddNewGoal: Dispatch<boolean>
   setWeek: Dispatch<string>
+  week: string
 }
 
-const TrackedGoalForm = ({ setAddNewGoal, setWeek }: TrackedGoalFormProps) => {
+const TrackedGoalForm = ({
+  setAddNewGoal,
+  setWeek,
+  week,
+}: TrackedGoalFormProps) => {
   const { error, setError, loading, makeRequest } = useAxios()
   const { goals, setTrackedGoals } = useGoalManagementContext()
   const { fetchGoals } = useFetchGoals()
@@ -76,7 +81,7 @@ const TrackedGoalForm = ({ setAddNewGoal, setWeek }: TrackedGoalFormProps) => {
           </select>
         </section>
         <section>
-          <select name='timeframe'>
+          <select name='timeframe' value={week}>
             <option value='this-week'>This Week</option>
             <option value='next-week'>Next Week</option>
           </select>

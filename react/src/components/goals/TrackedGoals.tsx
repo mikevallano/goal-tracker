@@ -54,7 +54,11 @@ const TrackedGoals = () => {
         </button>
       )}
       {addNewGoal && (
-        <TrackedGoalForm setAddNewGoal={setAddNewGoal} setWeek={setWeek} />
+        <TrackedGoalForm
+          setAddNewGoal={setAddNewGoal}
+          setWeek={setWeek}
+          week={week}
+        />
       )}
       <div className='tracked-goals-container'>
         {trackedGoals &&
