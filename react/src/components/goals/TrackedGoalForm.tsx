@@ -14,17 +14,16 @@ type TrackedGoalCreateParams = {
 
 type TrackedGoalFormProps = {
   setAddNewGoal: Dispatch<boolean>
+  setWeek: Dispatch<string>
 }
 
-const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
+const TrackedGoalForm = ({ setAddNewGoal, setWeek }: TrackedGoalFormProps) => {
   const { error, setError, loading, makeRequest } = useAxios()
   const { goals, setTrackedGoals } = useGoalManagementContext()
   const { fetchGoals } = useFetchGoals()
 
   useEffect(() => {
-    {
-      goals.length > 0 && fetchGoals()
-    }
+    fetchGoals()
   }, [])
 
   const handleCreate = (data: {}) => {
@@ -53,6 +52,7 @@ const TrackedGoalForm = ({ setAddNewGoal }: TrackedGoalFormProps) => {
       setError('Must enter goalId and timeframe')
     } else {
       setAddNewGoal(false)
+      setWeek(timeframe)
       sendRequest({ goal_id: goalId, timeframe, timeframe_type: 'week' })
       form.reset()
     }
