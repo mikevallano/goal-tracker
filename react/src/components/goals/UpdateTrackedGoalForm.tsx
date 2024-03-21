@@ -65,14 +65,16 @@ const UpdateTrackedGoalForm = ({
         </section>
         <section>
           <label htmlFor='progress-rating'>Progress Rating</label>
-          <input
-            type='number'
+          <select
             name='progressRating'
-            defaultValue={trackedGoal.progress_rating || 1}
-            min='1'
-            max='5'
-            step='1'
-          />
+            value={trackedGoal.progress_rating || 1}
+          >
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+            <option value='4'>4</option>
+            <option value='5'>5</option>
+          </select>
         </section>
         <button className='btn btn-sm' type='submit'>
           Update
