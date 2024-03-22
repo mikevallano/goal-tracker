@@ -67,7 +67,7 @@ const UpdateTrackedGoalForm = ({
           <label htmlFor='progress-rating'>Progress Rating</label>
           <select
             name='progressRating'
-            value={trackedGoal.progress_rating || 1}
+            defaultValue={trackedGoal.progress_rating || 1}
           >
             <option value='1'>1</option>
             <option value='2'>2</option>

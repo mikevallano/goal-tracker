@@ -14,8 +14,10 @@ const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
       <h4>{trackedGoal.goal.name}</h4>
       {!isEditing && (
         <>
-          <p>Notes: {trackedGoal.notes}</p>
-          <p>Progress rating: {trackedGoal.progress_rating}</p>
+          {trackedGoal.notes && <p>Notes: {trackedGoal.notes}</p>}
+          {trackedGoal.notes && (
+            <p>Progress rating: {trackedGoal.progress_rating}</p>
+          )}
           <button className='btn btn-sm' onClick={() => setIsEditing(true)}>
             Track
           </button>
