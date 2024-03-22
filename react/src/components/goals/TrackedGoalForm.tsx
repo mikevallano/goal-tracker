@@ -81,7 +81,7 @@ const TrackedGoalForm = ({
           </select>
         </section>
         <section>
-          <select name='timeframe' value={week}>
+          <select name='timeframe' defaultValue={week}>
             <option value='this-week'>This Week</option>
             <option value='next-week'>Next Week</option>
           </select>
