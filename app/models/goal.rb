@@ -1,7 +1,7 @@
 class Goal < ApplicationRecord
   belongs_to :user
   belongs_to :category
-  has_many :tracked_goals
+  has_many :tracked_goals, dependent: :destroy # TODO: decide how to handle this
 
   validates :name, presence: true
 
