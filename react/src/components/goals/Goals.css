@@ -6,7 +6,7 @@
   display: block;
   margin-bottom: 10px;
   height: 1.5rem;
-  width: 10%;
+  width: 150px;
 }
 
 .btn {
@@ -31,5 +31,13 @@
 }
 
 .tracked-goal-contianer{
+  border: 1px solid goldenrod;
+  border-radius: 5px;
+  padding: 5px;
   margin-bottom: 1rem;
+}
+
+.goal-name {
+  font-size: larger;
+  padding: 2px;
 }
