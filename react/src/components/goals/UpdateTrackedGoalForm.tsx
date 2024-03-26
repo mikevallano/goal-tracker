@@ -58,13 +58,13 @@ const UpdateTrackedGoalForm = ({
     <div>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='tracked-goal-form'>
         <section>
-          <label htmlFor='notes'>Notes</label>
+          <label htmlFor='notes'>Notes:</label>
           <input type='text' name='notes' defaultValue={trackedGoal.notes} />
         </section>
         <section>
-          <label htmlFor='progress-rating'>Progress Rating</label>
+          <label htmlFor='progress-rating'>Rating:</label>
           <select
             name='progressRating'
             defaultValue={trackedGoal.progress_rating || 1}

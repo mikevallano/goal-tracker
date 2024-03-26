@@ -50,6 +50,6 @@ header.header span {
   display: flex;
 }
 
-.align-self-center {
-  align-self: center;
+.align-center {
+  align-items: center;
 }

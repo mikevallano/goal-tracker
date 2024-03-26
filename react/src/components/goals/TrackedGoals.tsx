@@ -42,11 +42,6 @@ const TrackedGoals = () => {
           <option value='last-week'>Last week</option>
           <option value='next-week'>Next week</option>
         </select>
-        {!trackedGoals && (
-          <button className='btn btn-sm' onClick={fetchTrackedGoals}>
-            Get Tracked Goals
-          </button>
-        )}
       </div>
       {!addNewGoal && (
         <button className='btn btn-sm' onClick={() => setAddNewGoal(true)}>

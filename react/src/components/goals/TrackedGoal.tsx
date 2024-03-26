@@ -12,20 +12,26 @@ const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
   const [isEditing, setIsEditing] = useState(false)
   return (
     <div className='tracked-goal-contianer'>
-      <div className='display-flex'>
+      <div className='display-flex align-center'>
         <p className='goal-name'>{trackedGoal.goal.name}</p>
         <MdOutlineNoteAdd
           onClick={() => setIsEditing((prev) => !prev)}
-          className='display-inline align-self-center'
+          className='add-notes-icon'
         />
       </div>
       {!isEditing && (
-        <>
-          {trackedGoal.notes && <p>Notes: {trackedGoal.notes}</p>}
+        <div className='goal-notes'>
           {trackedGoal.notes && (
-            <p>Progress rating: {trackedGoal.progress_rating}</p>
+            <p>
+              <strong>Notes:</strong> {trackedGoal.notes}
+            </p>
           )}
-        </>
+          {trackedGoal.notes && (
+            <p>
+              <strong>Rating:</strong> {trackedGoal.progress_rating}
+            </p>
+          )}
+        </div>
       )}
       {isEditing && (
         <UpdateTrackedGoalForm
