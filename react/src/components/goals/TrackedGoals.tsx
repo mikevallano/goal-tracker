@@ -27,7 +27,7 @@ const TrackedGoals = () => {
   }
   return (
     <div>
-      <h2>Tracked Goals for {week}</h2>
+      <h2>Tracked Goals for {week.replace('-', ' ')}</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <div className='get-tracked-goals'>
