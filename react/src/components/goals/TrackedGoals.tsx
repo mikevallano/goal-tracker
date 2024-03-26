@@ -27,7 +27,7 @@ const TrackedGoals = () => {
   }
   return (
     <div>
-      <h2>Tracked Goals for {week}</h2>
+      <h2>Tracked Goals for {week.replace('-', ' ')}</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       <div className='get-tracked-goals'>
@@ -42,11 +42,6 @@ const TrackedGoals = () => {
           <option value='last-week'>Last week</option>
           <option value='next-week'>Next week</option>
         </select>
-        {!trackedGoals && (
-          <button className='btn btn-sm' onClick={fetchTrackedGoals}>
-            Get Tracked Goals
-          </button>
-        )}
       </div>
       {!addNewGoal && (
         <button className='btn btn-sm' onClick={() => setAddNewGoal(true)}>
@@ -60,7 +55,7 @@ const TrackedGoals = () => {
           week={week}
         />
       )}
-      <div className='tracked-goals-container'>
+      <div className='cards-container'>
         {trackedGoals &&
           trackedGoals.map((trackedGoal: TrackedGoalType) => (
             <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />

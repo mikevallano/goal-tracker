@@ -2,20 +2,17 @@
   margin-bottom: 1rem;
 }
 
-.get-tracked-goals select, .add-tracked-goal-form-container  select {
-  display: block;
-  margin-bottom: 10px;
-  height: 1.5rem;
-  width: 10%;
+.add-tracked-goal-form-container select {
+  width: 150px;
 }
 
 .btn {
   display: inline-block;
   cursor: pointer;
   padding: 10px 30px;
-  border: none;
+  border: 1px solid var(--color-secondary);
   border-radius: 5px;
-  background-color: lightblue;
+  background-color: var(--main-background);
 }
 
 .btn.btn-sm {
@@ -26,10 +23,46 @@
   display: block;
 }
 
-.tracked-goals-container {
+.cards-container {
   margin-top: 1rem;
 }
 
-.tracked-goal-contianer{
+.card {
+  border: 1px solid var(--color-secondary);
+  border-radius: 5px;
+  padding: 5px;
   margin-bottom: 1rem;
+}
+
+.card-header {
+  font-size: larger;
+  padding: 2px;
+  margin-bottom: 5px;
+}
+
+.add-notes-icon {
+  position: relative;
+  top: -2px;
+  margin-left: 5px;
+}
+
+.goal-notes {
+  font-size: small;
+}
+
+select, input {
+  background-color: var(--main-background);
+}
+
+form input, select {
+  height: 2rem;
+  padding: 5px;
+}
+
+form label {
+  margin-right: 5px;
+}
+
+form.tracked-goal-form input[type='text'] {
+  width: 50%;
 }

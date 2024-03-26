@@ -4,8 +4,8 @@ type CategoryProps = {
 
 const Category = ({ name }: CategoryProps) => {
   return (
-    <div>
-      <h3>Category name: {name}</h3>
+    <div className='card'>
+      <p className='card-header'>{name}</p>
     </div>
   )
 }

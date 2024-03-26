@@ -9,7 +9,7 @@ import Home from './components/Home'
 
 function App() {
   return (
-    <>
+    <div className='container'>
       <Header />
       <LoggedInCheck>
         <Routes>
@@ -19,7 +19,7 @@ function App() {
           <Route path='/' element={<Home />} />
         </Routes>
       </LoggedInCheck>
-    </>
+    </div>
   )
 }
 

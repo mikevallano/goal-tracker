@@ -54,7 +54,9 @@ const SignUpForm = () => {
         <label htmlFor='password'>Password</label>
         <input type='password' name='password' />
       </section>
-      <button type='submit'>Sign Up</button>
+      <button className='btn btn-sm' type='submit'>
+        Sign Up
+      </button>
     </form>
   )
   return (

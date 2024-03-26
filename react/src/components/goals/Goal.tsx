@@ -1,4 +1,5 @@
 import { GoalType } from '../../types/GoalTypes'
+import './Goals.css'
 
 type GoalProps = {
   goal: GoalType
@@ -6,8 +7,9 @@ type GoalProps = {
 
 const Goal = ({ goal }: GoalProps) => {
   return (
-    <div>
-      <h4>{goal.name}</h4>
+    <div className='card'>
+      <p className='card-header'>{goal.name}</p>
+      <p>{goal.category.name}</p>
     </div>
   )
 }

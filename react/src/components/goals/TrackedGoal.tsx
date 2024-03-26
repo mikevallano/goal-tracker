@@ -1,6 +1,7 @@
 import { TrackedGoalType } from '../../types/GoalTypes'
 import UpdateTrackedGoalForm from './UpdateTrackedGoalForm'
 import { useState } from 'react'
+import { MdOutlineNoteAdd } from 'react-icons/md'
 import './Goals.css'
 
 type TrackedGoalParams = {
@@ -10,18 +11,27 @@ type TrackedGoalParams = {
 const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
   const [isEditing, setIsEditing] = useState(false)
   return (
-    <div className='tracked-goal-contianer'>
-      <h4>{trackedGoal.goal.name}</h4>
+    <div className='card'>
+      <div className='display-flex align-center'>
+        <p className='card-header'>{trackedGoal.goal.name}</p>
+        <MdOutlineNoteAdd
+          onClick={() => setIsEditing((prev) => !prev)}
+          className='add-notes-icon'
+        />
+      </div>
       {!isEditing && (
-        <>
-          {trackedGoal.notes && <p>Notes: {trackedGoal.notes}</p>}
+        <div className='goal-notes'>
           {trackedGoal.notes && (
-            <p>Progress rating: {trackedGoal.progress_rating}</p>
+            <p>
+              <strong>Notes:</strong> {trackedGoal.notes}
+            </p>
           )}
-          <button className='btn btn-sm' onClick={() => setIsEditing(true)}>
-            Track
-          </button>
-        </>
+          {trackedGoal.notes && (
+            <p>
+              <strong>Rating:</strong> {trackedGoal.progress_rating}
+            </p>
+          )}
+        </div>
       )}
       {isEditing && (
         <UpdateTrackedGoalForm
