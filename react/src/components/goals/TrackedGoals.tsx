@@ -55,7 +55,7 @@ const TrackedGoals = () => {
           week={week}
         />
       )}
-      <div className='tracked-goals-container'>
+      <div className='cards-container'>
         {trackedGoals &&
           trackedGoals.map((trackedGoal: TrackedGoalType) => (
             <TrackedGoal key={trackedGoal.id} trackedGoal={trackedGoal} />

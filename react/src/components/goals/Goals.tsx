@@ -4,6 +4,7 @@ import useFetchGoals from '../../hooks/useFetchGoals'
 import useGoalManagmentContext from '../../hooks/useGoalManagementContext'
 import Goal from './Goal'
 import GoalForm from './GoalForm'
+import './Goals.css'
 import useFetchCategories from '../../hooks/useFetchCategories'
 
 const Goals = () => {
@@ -30,7 +31,9 @@ const Goals = () => {
           Add new goal
         </button>
       )}
-      {goals && goals.map((goal) => <Goal key={goal.id} goal={goal} />)}
+      <div className='cards-container'>
+        {goals && goals.map((goal) => <Goal key={goal.id} goal={goal} />)}
+      </div>
     </div>
   )
 }

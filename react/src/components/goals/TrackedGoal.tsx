@@ -11,9 +11,9 @@ type TrackedGoalParams = {
 const TrackedGoal = ({ trackedGoal }: TrackedGoalParams) => {
   const [isEditing, setIsEditing] = useState(false)
   return (
-    <div className='tracked-goal-contianer'>
+    <div className='card'>
       <div className='display-flex align-center'>
-        <p className='goal-name'>{trackedGoal.goal.name}</p>
+        <p className='card-header'>{trackedGoal.goal.name}</p>
         <MdOutlineNoteAdd
           onClick={() => setIsEditing((prev) => !prev)}
           className='add-notes-icon'

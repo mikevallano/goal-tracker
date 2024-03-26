@@ -33,18 +33,18 @@
   display: block;
 }
 
-.tracked-goals-container {
+.cards-container {
   margin-top: 1rem;
 }
 
-.tracked-goal-contianer{
+.card {
   border: 1px solid goldenrod;
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 1rem;
 }
 
-.goal-name {
+.card-header {
   font-size: larger;
   padding: 2px;
   margin-bottom: 5px;
