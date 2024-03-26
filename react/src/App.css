@@ -4,6 +4,8 @@
 
 body {
   font-family: 'Roboto', sans-serif;
+  color: var(--color-secondary);
+  background-color: var(--color-main-background);
 }
 
 
@@ -16,12 +18,12 @@ h2, h3 {
 }
 
 .container {
-  padding: 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 
 p.login-signup-link {
   margin-top: 10px;
-  color: blue;
+  color: var(--color-secondary);
   text-decoration: underline;
 }
 
@@ -33,10 +35,18 @@ header.header {
   margin-bottom: 1rem;
 }
 
-header.header span {
-  color: blue;
-  text-decoration: underline;
+header.header span, header.header a {
   margin-right: 10px;
+}
+
+header.header span:hover, header.header a:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
 }
 
 
@@ -52,4 +62,16 @@ header.header span {
 
 .align-center {
   align-items: center;
+}
+
+
+/* Variables */
+:root {
+  --color-tan: #eae7dc;
+  --color-beige: #d8c3a5;
+  --color-grey: #8e8d8a;
+  --color-light-red: #e98074;
+  --color-dark-red: #e85a4f;
+  --color-main-background: var(--color-tan);
+  --color-secondary: darkslategray;
 }

@@ -20,9 +20,9 @@
   display: inline-block;
   cursor: pointer;
   padding: 10px 30px;
-  border: none;
+  border: 1px solid var(--color-secondary);
   border-radius: 5px;
-  background-color: lightblue;
+  background-color: var(--main-background);
 }
 
 .btn.btn-sm {
@@ -38,7 +38,7 @@
 }
 
 .card {
-  border: 1px solid goldenrod;
+  border: 1px solid var(--color-secondary);
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 1rem;
@@ -58,6 +58,10 @@
 
 .goal-notes {
   font-size: small;
+}
+
+select, input {
+  background-color: var(--main-background);
 }
 
 form.tracked-goal-form input, form.tracked-goal-form select {
