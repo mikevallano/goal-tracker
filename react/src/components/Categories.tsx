@@ -4,6 +4,7 @@ import useFetchCategories from '../hooks/useFetchCategories'
 import useGoalManagementContext from '../hooks/useGoalManagementContext'
 import Category from './Category'
 import CategoryForm from './CategoryForm'
+import './goals/Goals.css'
 
 const Categories = () => {
   const { loading, error } = useAxios()
@@ -27,10 +28,12 @@ const Categories = () => {
         </button>
       )}
       {isAdding && <CategoryForm setIsAdding={setIsAdding} />}
-      {categories &&
-        categories.map((category) => {
-          return <Category key={category.id} name={category.name} />
-        })}
+      <div className='cards-container'>
+        {categories &&
+          categories.map((category) => {
+            return <Category key={category.id} name={category.name} />
+          })}
+      </div>
     </div>
   )
 }
