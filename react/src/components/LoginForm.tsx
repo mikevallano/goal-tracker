@@ -54,7 +54,9 @@ const LoginForm: React.FC = () => {
           <label>Password:</label>
           <input type='password' name='password' />
         </section>
-        <button type='submit'>Log In</button>
+        <button className='btn btn-sm' type='submit'>
+          Log In
+        </button>
       </form>
     </>
   )

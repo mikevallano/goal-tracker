@@ -3,17 +3,7 @@
 }
 
 .add-tracked-goal-form-container select {
-  display: block;
-  margin-bottom: 10px;
-  height: 1.5rem;
   width: 150px;
-}
-
-.get-tracked-goals select {
-  display: block;
-  margin-bottom: 10px;
-  width: 150px;
-  height: 2rem;
 }
 
 .btn {
@@ -64,10 +54,13 @@ select, input {
   background-color: var(--main-background);
 }
 
-form.tracked-goal-form input, form.tracked-goal-form select {
+form input, select {
   height: 2rem;
-  margin-left: 5px;
   padding: 5px;
+}
+
+form label {
+  margin-right: 5px;
 }
 
 form.tracked-goal-form input[type='text'] {
