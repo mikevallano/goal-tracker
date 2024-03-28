@@ -1,7 +1,8 @@
 import { useAxios } from './useAxios'
 import useGoalManagmentContext from './useGoalManagementContext'
+import baseUrl from '../config'
 
-const GOALS_URL = 'http://localhost:3000/api/v1/goals'
+const GOALS_URL = `${baseUrl}/api/v1/goals`
 
 const useFetchGoals = () => {
   const { makeRequest } = useAxios()

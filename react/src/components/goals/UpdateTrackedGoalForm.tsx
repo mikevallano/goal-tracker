@@ -2,8 +2,9 @@ import { TrackedGoalType } from '../../types/GoalTypes'
 import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import { Dispatch } from 'react'
+import baseUrl from '../../config'
 
-const UPDATE_URL = 'http://localhost:3000/api/v1/tracked_goals'
+const UPDATE_URL = `${baseUrl}/api/v1/tracked_goals`
 
 type UpdateTrackedGoalFormProps = {
   trackedGoal: TrackedGoalType

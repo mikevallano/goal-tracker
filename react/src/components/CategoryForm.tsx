@@ -1,8 +1,9 @@
 import useGoalManagementContext from '../hooks/useGoalManagementContext'
 import { useAxios } from '../hooks/useAxios'
 import { Dispatch } from 'react'
+import baseUrl from '../config'
 
-const CATEGORIES_URL = 'http://localhost:3000/api/v1/categories'
+const CATEGORIES_URL = `${baseUrl}/api/v1/categories`
 
 type CategoryFormProps = {
   setIsAdding: Dispatch<boolean>

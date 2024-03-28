@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { requestConfigParams, useAxios } from '../hooks/useAxios'
 import { useAuthContext } from '../hooks/useAuthContext'
+import baseUrl from '../config'
 
-const SIGNUP_URL = 'http://localhost:3000/api/v1/signup'
+const SIGNUP_URL = `${baseUrl}/api/v1/signup`
 
 type SignInParams = {
   email: string

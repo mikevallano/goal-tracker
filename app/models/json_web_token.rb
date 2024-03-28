@@ -1,10 +1,12 @@
 module JsonWebToken
   def self.encode(payload, expiration_mins: 60)
     expiration = expiration_mins.minutes.from_now.to_i
-    JWT.encode(payload.merge(exp: expiration), Rails.application.credentials.jwt[:secret_key], 'HS256')
+    secret_key = ENV['JWT_SECRET_KEY'] || Rails.application.credentials.jwt[:secret_key]
+    JWT.encode(payload.merge(exp: expiration), secret_key, 'HS256')
   end
 
   def self.decode(token)
-    JWT.decode(token, Rails.application.credentials.jwt[:secret_key], 'HS256').first
+    secret_key = ENV['JWT_SECRET_KEY'] || Rails.application.credentials.jwt[:secret_key]
+    JWT.decode(token, secret_key, 'HS256').first
   end
 end

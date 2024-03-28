@@ -3,8 +3,9 @@ import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import './Goals.css'
 import useFetchGoals from '../../hooks/useFetchGoals'
+import baseUrl from '../../config'
 
-const TRACKED_GOAL_URL = 'http://localhost:3000/api/v1/tracked_goals'
+const TRACKED_GOAL_URL = `${baseUrl}/api/v1/tracked_goals`
 
 type TrackedGoalCreateParams = {
   goal_id: string

@@ -47,6 +47,8 @@ gem 'bootsnap', require: false
 gem 'devise'
 gem 'jwt'
 gem 'rack-cors'
+# Serve static index as catch-all route
+gem 'rails-static-router'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

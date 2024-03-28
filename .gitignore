@@ -29,7 +29,10 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets
+/public/assets*
+!/public/assets/index.html
+!/public/assets/*.js
+!/public/assets/*.css
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
@@ -37,3 +40,5 @@
 
 .DS_Store
 misc.*
+
+/config/credentials/production.key

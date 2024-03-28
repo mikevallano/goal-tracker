@@ -1,7 +1,8 @@
 import { useAxios } from './useAxios'
 import useGoalManagementContext from './useGoalManagementContext'
+import baseUrl from '../config'
 
-const CATEGORIES_URL = 'http://localhost:3000/api/v1/categories'
+const CATEGORIES_URL = `${baseUrl}/api/v1/categories`
 
 const useFetchCategories = () => {
   const { setCategories } = useGoalManagementContext()

@@ -1,7 +1,8 @@
 import { useAuthContext } from '../hooks/useAuthContext'
 import { requestConfigParams, useAxios } from '../hooks/useAxios'
+import baseUrl from '../config'
 
-const LOGIN_URL = 'http://localhost:3000/api/v1/login'
+const LOGIN_URL = `${baseUrl}/api/v1/login`
 
 type loginParams = {
   email: string

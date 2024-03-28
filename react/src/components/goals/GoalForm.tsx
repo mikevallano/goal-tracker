@@ -1,8 +1,9 @@
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import { useAxios } from '../../hooks/useAxios'
 import { Dispatch } from 'react'
+import baseUrl from '../../config'
 
-const GOALS_URL = 'http://localhost:3000/api/v1/goals'
+const GOALS_URL = `${baseUrl}/api/v1/goals`
 
 type GoalFormProps = {
   setIsAdding: Dispatch<boolean>
