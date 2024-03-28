@@ -6,6 +6,15 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get 'up' => 'rails/health#show', as: :rails_health_check
 
+  # The env var is for testing in development
+  if ENV['RAILS_SERVE_STATIC_FILES'].present? || Rails.env.production?
+    get '*path',
+        to: 'static#index',
+        constraints: lambda { |req|
+          req.path.exclude? 'rails/active_storage'
+        }
+  end
+
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       post 'login', to: 'authentication#create'
