@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :categories
   has_many :goals
   has_many :tracked_goals, through: :goals
+  has_many :wins
 
   enum week_starts_on_day: %w[monday tuesday wednesday thursday friday saturday sunday].index_with(&:to_s)
 
