@@ -15,6 +15,9 @@ const Header = () => {
       <span>
         <Link to='/trackedGoals'>Tracked Goals</Link>
       </span>
+      <span>
+        <Link to='/wins'>Wins</Link>
+      </span>
       <span onClick={handleLogOut}>Log out</span>
     </>
   )

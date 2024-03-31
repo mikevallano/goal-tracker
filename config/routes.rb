@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :categories
       resources :goals
       resources :tracked_goals
+      resources :wins
     end
   end
 
