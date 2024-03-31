@@ -23,7 +23,7 @@ class TrackedGoalsFilter < BaseService
     @tracked_goals =
       TrackedGoal
       .by_user(@user)
-    @tracked_goals = @tracked_goals.by_week(query_start_date) if @filter.present?
+    @tracked_goals = @tracked_goals.by_start_date(query_start_date) if @filter.present?
   end
 
   def query_start_date
