@@ -10,7 +10,6 @@
 # setup suggested by devise-jwt gem
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    # TODO: origins need to include actual production url for frontend
     origins('localhost:3000', '127.0.0.1:3000', 'localhost:3001', '127.0.0.1:3001', 'https://goal-tracking-1ee07128703e.herokuapp.com/')
     resource(
       '/api/*',
