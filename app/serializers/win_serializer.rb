@@ -15,7 +15,7 @@ class WinSerializer < BaseSerializer
       id: @win.id,
       title: @win.title,
       description: @win.description,
-      happened_at: @win.happened_at
+      happened_at: @win.happened_at&.strftime('%D')
     }
   end
 
