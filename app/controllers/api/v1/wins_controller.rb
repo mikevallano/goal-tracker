@@ -9,7 +9,7 @@ class Api::V1::WinsController < Api::BaseController
   def create
     result = CreateWin.call!(params: create_params)
     if result.success?
-      render json: result.win
+      render json: WinSerializer.call!(win: result.win)
     else
       render json: { error: result.error_message }, status: :precondition_failed
     end
