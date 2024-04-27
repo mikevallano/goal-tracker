@@ -1,4 +1,4 @@
-import { Dispatch, useEffect } from 'react'
+import { Dispatch, useEffect, useState } from 'react'
 import { useAxios } from '../../hooks/useAxios'
 import useGoalManagementContext from '../../hooks/useGoalManagementContext'
 import './Goals.css'
@@ -25,12 +25,22 @@ const TrackedGoalForm = ({
   week,
 }: TrackedGoalFormProps) => {
   const { error, setError, loading, makeRequest } = useAxios()
-  const { goals, setTrackedGoals } = useGoalManagementContext()
+  const { goals, trackedGoals, setTrackedGoals } = useGoalManagementContext()
   const { fetchGoals } = useFetchGoals()
+  const [dropdownGoals, setDropdownGoals] = useState([])
 
   useEffect(() => {
     fetchGoals()
   }, [])
+
+  useEffect(() => {
+    const filteredGoals = goals.filter((goal) => {
+      return !trackedGoals.some(
+        (trackedGoal) => trackedGoal.goal_id === goal.id
+      )
+    })
+    setDropdownGoals(filteredGoals)
+  }, [goals, trackedGoals])
 
   const handleCreate = (data: {}) => {
     setTrackedGoals((prev: []) => [data, ...prev])
@@ -72,7 +82,7 @@ const TrackedGoalForm = ({
         <section>
           <label>Select Goal</label>
           <select name='goalId' id='goal'>
-            {goals.map((goal) => {
+            {dropdownGoals.map((goal) => {
               return (
                 <option key={goal.id} value={goal.id}>
                   {goal.name}
