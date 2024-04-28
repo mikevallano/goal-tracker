@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     # get '*path', to: 'static#index', constraints: lambda { |req|
     #   req.path.exclude?('rails/active_storage') && !req.path.blank?
     # }
-    get '*path', to: static('index.html')
-    # post '*path', to: static('index.html')
+    get '*path', to: 'public#index', constraints: ->(request) { !request.xhr? && request.format.html? }
   end
 end
