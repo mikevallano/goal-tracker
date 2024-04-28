@@ -29,10 +29,10 @@
 !/tmp/storage/
 !/tmp/storage/.keep
 
-/public/assets*
-!/public/assets/index.html
-!/public/assets/*.js
-!/public/assets/*.css
+# /public/assets*
+# !/public/assets/index.html
+# !/public/assets/*.js
+# !/public/assets/*.css
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
