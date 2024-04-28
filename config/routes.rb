@@ -21,9 +21,6 @@ Rails.application.routes.draw do
   root 'public#index'
   # The env var is for testing in development.
   if ENV['RAILS_SERVE_STATIC_FILES'].present? || Rails.env.production?
-    # get '*path', to: 'static#index', constraints: lambda { |req|
-    #   req.path.exclude?('rails/active_storage') && !req.path.blank?
-    # }
     get '*path', to: 'public#index', constraints: ->(request) { !request.xhr? && request.format.html? }
   end
 end
