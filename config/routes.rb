@@ -19,8 +19,5 @@ Rails.application.routes.draw do
   end
 
   root 'public#index'
-  # The env var is for testing in development.
-  if ENV['RAILS_SERVE_STATIC_FILES'].present? || Rails.env.production?
-    get '*path', to: 'public#index', constraints: ->(request) { !request.xhr? && request.format.html? }
-  end
+  get '*path', to: 'public#index', constraints: ->(request) { !request.xhr? && request.format.html? }
 end
