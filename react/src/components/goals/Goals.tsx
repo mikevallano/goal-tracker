@@ -21,7 +21,7 @@ const Goals = () => {
 
   return (
     <div>
-      <h2>Goal</h2>
+      <h2>Goalzzz</h2>
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {!goals && <button onClick={fetchGoals}>Get goals</button>}

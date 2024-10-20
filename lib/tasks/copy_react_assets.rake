@@ -4,7 +4,7 @@ namespace :react do
   # This is a manual task to copy the compiled react assets to the public directory
   # first run `npm run build` in the react directory to compile the assets.
   # Then ensure they are in the git history.
-  # Then run `rake react:copy_assets` to copy the assets to the public directory.
+  # Then run `rails react:copy_assets` to copy the assets to the public directory.
   task copy_assets: :environment do
     source_dir = Rails.root.join('react', 'dist')
     destination_dir = Rails.root.join('public')
