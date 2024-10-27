@@ -19,6 +19,7 @@ So as a temporary hack, just be sure to use the react app (at localhost:3001) in
 
 
 **Managing react compiling locally and production**
+- when react code is ready, `npm run build`
 - this process is WIP and needs to be automated, but after developing locally, i have a rake task: `lib/tasks/copy_react_assets.rake` that will move the compiled react code into the public directory to be used in production.
 
 
