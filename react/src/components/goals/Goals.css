@@ -19,6 +19,10 @@
   padding: 5px 10px;
 }
 
+.btn.btn-xs {
+  padding: 2px 5px;
+}
+
 .add-tracked-goal-form-container label {
   display: block;
 }

@@ -48,6 +48,10 @@ a {
   text-decoration: none;
 }
 
+.warning {
+  color: var(--color-alert);
+}
+
 
 /* UTILITIES */
 
@@ -73,4 +77,5 @@ a {
   --color-dark-red: #e85a4f;
   --color-main-background: var(--color-tan);
   --color-secondary: darkslategray;
+  --color-alert: #cc3300;
 }
