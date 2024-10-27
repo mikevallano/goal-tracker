@@ -38,7 +38,9 @@ export const useAxios = (): UseAxiosResult => {
           method: requestConfig.method,
           url: requestConfig.url,
           data:
-            requestConfig.method === 'post' || requestConfig.method === 'put'
+            requestConfig.method === 'post' ||
+            requestConfig.method === 'put' ||
+            requestConfig.method === 'patch'
               ? requestConfig.params
               : undefined,
           params:
