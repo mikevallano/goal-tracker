@@ -3,7 +3,7 @@ import { useState, useCallback } from 'react'
 import { useAuthContext } from './useAuthContext'
 
 export type requestConfigParams = {
-  method: 'get' | 'post' | 'put' | 'delete'
+  method: 'get' | 'post' | 'put' | 'patch' | 'delete'
   url: string
   params?: Record<string, any>
 }

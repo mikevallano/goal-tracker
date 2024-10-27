@@ -17,6 +17,12 @@ RSpec.describe Api::V1::GoalsController, type: :controller do
       expect(response).to have_http_status(:ok)
       expect(JSON.parse(response.body).first['name']).to eq(goal.name)
     end
+
+    it 'does not return archived goals' do
+      goal.update(archived_at: Time.current)
+      get :index
+      expect(JSON.parse(response.body)).to be_empty
+    end
   end
 
   describe 'POST #create' do

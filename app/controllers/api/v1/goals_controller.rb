@@ -1,6 +1,6 @@
 class Api::V1::GoalsController < Api::BaseController
   def index
-    serialized_goals = current_user.goals.includes(:category).map do |goal|
+    serialized_goals = current_user.goals.active.includes(:category).map do |goal|
       GoalSerializer.call!(goal:)
     end
     render json: serialized_goals, status: :ok
